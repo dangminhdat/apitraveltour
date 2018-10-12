@@ -21,6 +21,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @RequestMapping("/")
+    @ResponseBody
+    public String welcome() {
+        return "Welcome to RestTemplate Example.";
+    }
+    
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
