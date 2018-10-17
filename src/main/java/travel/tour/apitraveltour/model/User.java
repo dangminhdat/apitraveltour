@@ -11,18 +11,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
-	 
-	@Id
+     
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	
-	@NotBlank
+
     private String username;
-    
-	@NotBlank
+
     private String password;
-	
-	private int active;
+
+    private int active;
  
     public User() {
  

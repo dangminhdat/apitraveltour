@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<!-- custom-theme -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Esteem Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript">
+     addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<!-- //custom-theme -->
+<link th:href="@{/admin/css/bootstrap.css}" rel="stylesheet"
+	type="text/css" media="all" />
+<link th:href="@{/admin/css/snow.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<link th:href="@{/admin/css/component.css}" rel="stylesheet"
+	type="text/css" media="all" />
+<link th:href="@{/admin/css/style_grid.css}" rel="stylesheet"
+	type="text/css" media="all" />
+<link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<!-- font-awesome-icons -->
+<link th:href="@{/admin/css/font-awesome.css}" rel="stylesheet" />
+<!-- //font-awesome-icons -->
+<link
+	href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800"
+	rel="stylesheet" />
+</head>
+<body>
+	<div class="wthree_agile_admin_info">
+		<!--Start header -->
+		<th:block th:replace="admin/fragments/header :: header"></th:block>
+		<!--End header -->
+
+		<div class="clearfix"></div>
+
+		<!--Start content -->
+		<th:block layout:fragment="content"></th:block>
+		<!--End content -->
+	</div>
+	<!--Start header -->
+	<th:block th:replace="admin/fragments/footer :: footer"></th:block>
+	<!--End header -->
+</body>
+</html>
