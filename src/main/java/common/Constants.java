@@ -18,7 +18,19 @@ public class Constants {
         public static final String ADMIN_LOGIN = "/operator-login";
 
         // Admin index screen
-        public static final String TOP_PAGE = "/top-page";
+        public static final String TOP_PAGE = "admin/top-page";
+
+        // User screen
+        public static final String HANDLER_USER = "admin/user";
+
+        // Hotel screen
+        public static final String HANDLER_HOTEL = "admin/hotel";
+
+        // Guide screen
+        public static final String HANDLER_GUIDE = "admin/guide";
+
+        // Tour screen
+        public static final String HANDLER_TOUR = "admin/tour";
     }
 
     public class Characters {
@@ -28,5 +40,17 @@ public class Constants {
 
         // Wave
         public static final String WAVE = "~";
+    }
+
+    public class SessionKey {
+
+        // Key to set/get data userId to session
+        public static final String USER_ID = "user-id";
+
+        // Key to set/get data adminId to session
+        public static final String ADMIN_ID = "admin-id";
+
+        // Key to set/get data remember_token to session
+        public static final String REMEMBER_TOKEN = "remember-token";
     }
 }
