@@ -20,11 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import common.Constants;
 import common.Constants.Url;
 import travel.tour.apitraveltour.model.Hotel;
-import travel.tour.apitraveltour.model.User;
 
 @Controller
 @RequestMapping(Url.TOP_PAGE)
-public class TopPageController {
+public class TopPageController extends AbstractUserController {
 
     // =====================================================================
     // Constants
@@ -44,10 +43,10 @@ public class TopPageController {
     public ModelAndView showTopPageScreen() {
 
         // Check session login and role
-       /* String result = checkSessionAndRole();
+        String result = checkSessionAndRole();
         if (!result.equals(Constants.Characters.BLANK)) {
-           return new ModelAndView(result);
-        }*/
+            return new ModelAndView(result);
+        }
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<ArrayList<Hotel>> response = restTemplate.exchange("http://localhost:8080/api/hotelTest",

@@ -1,6 +1,6 @@
 /**
-* File ： HotelController.java
-* Overview ： Processing handle hotel in system
+* File ： GuideController.java
+* Overview ： Processing handle guide in system
 *
 * @author TrangHTH
 * @version 1.0
@@ -22,26 +22,26 @@ import common.Constants.Url;
 import travel.tour.apitraveltour.model.modelRequest.User;
 
 @Controller
-@RequestMapping(Url.HANDLER_HOTEL)
-public class HotelController {
+@RequestMapping(Url.HANDLER_GUIDE)
+public class GuideController {
 
 
     // =====================================================================
     // Constants
     // =====================================================================
-    // Handle hotel Screen.
-    public static final String HANDLE_HOTEL_SCREEN = "admin/hotel";
+    // Handle guide Screen.
+    public static final String HANDLE_GUIDE_SCREEN = "admin/guide";
 
     // =====================================================================
     // Public method
     // =====================================================================
     /**
-     * Show handle hotel screen
+     * Show handle guide screen
      * 
-     * @return hotel screen
+     * @return guide screen
      */
     @RequestMapping(Constants.Characters.BLANK)
-    public ModelAndView showHandleHotelScreen() {
+    public ModelAndView showHandleGuideScreen() {
 
         // Check session login and role
        /* String result = checkSessionAndRole();
@@ -55,7 +55,7 @@ public class HotelController {
                 });
         ArrayList<User> users = response.getBody();
         // Set data to display.
-        ModelAndView mav = new ModelAndView(HANDLE_HOTEL_SCREEN);
+        ModelAndView mav = new ModelAndView(HANDLE_GUIDE_SCREEN);
         mav.addObject("users", users);
         return mav;
     }
