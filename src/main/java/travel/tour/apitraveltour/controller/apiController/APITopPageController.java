@@ -6,7 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import travel.tour.apitraveltour.model.Hotel;
-import travel.tour.apitraveltour.model.User;
+import travel.tour.apitraveltour.model.modelRequest.User;
 import travel.tour.apitraveltour.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
