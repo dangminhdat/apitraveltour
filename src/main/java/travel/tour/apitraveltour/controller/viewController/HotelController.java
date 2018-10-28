@@ -244,14 +244,17 @@ public class HotelController extends AbstractUserController {
         // Check format phone
         ValidateFormUtils.validatePhoneNumber(hotelEdit.getPhone(), bindingResult);
         if (bindingResult.hasErrors()) {
-            redirectAttr.addFlashAttribute("failMsg", "Số điện thoại chưa chính xác");
-            return mav;
+            redirectAttr.addFlashAttribute("failPhoneMsg", "Số điện thoại chưa chính xác");
         }
 
         // Check format website
         ValidateFormUtils.checkFormatWebsite(hotelEdit.getWebsite(), bindingResult);
         if (bindingResult.hasErrors()) {
-            redirectAttr.addFlashAttribute("failMsg", "Địa chỉ website chưa chính xác");
+            redirectAttr.addFlashAttribute("failWebsiteMsg", "Địa chỉ website chưa chính xác");
+        }
+
+        // Summary error
+        if (bindingResult.hasErrors()) {
             return mav;
         }
 
