@@ -150,18 +150,13 @@ public class HotelController extends AbstractUserController {
 
         // Validate check form empty
         ValidateFormUtils.checkEmpty(hotelAdd, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return mav;
-        }
 
         // Check format phone
         ValidateFormUtils.validatePhoneNumber(hotelAdd.getPhone(), bindingResult);
-        if (bindingResult.hasErrors()) {
-            return mav;
-        }
 
         // Check format website
         ValidateFormUtils.checkFormatWebsite(hotelAdd.getWebsite(), bindingResult);
+
         if (bindingResult.hasErrors()) {
             return mav;
         }
