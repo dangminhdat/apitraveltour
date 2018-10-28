@@ -1,3 +1,10 @@
+/**
+* File ： Hotel.java
+* Overview ： Hotel class
+*
+* @author TrangHTH
+* @version 1.0
+*/
 package travel.tour.apitraveltour.model;
 
 import javax.persistence.Entity;
@@ -22,20 +29,23 @@ public class Hotel {
 
     private String address;
 
-    private int phone;
+    private String phone;
 
     private String website;
+
+    private int price_room;
 
     public Hotel() {
 
     }
 
-    public Hotel(int id, String name, String address, int phone, String website) {
+    public Hotel(int id, String name, String address, String phone, String website, int price_room) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.website = website;
+        this.price_room = price_room;
     }
 
     /**
@@ -86,7 +96,7 @@ public class Hotel {
     /**
      * @return the phone
      */
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -94,7 +104,7 @@ public class Hotel {
      * @param phone
      *            the phone to set
      */
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -111,6 +121,21 @@ public class Hotel {
      */
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    /**
+     * @return the price_room
+     */
+    public int getPrice_room() {
+        return price_room;
+    }
+
+    /**
+     * @param price_room
+     *            the price_room to set
+     */
+    public void setPrice_room(int price_room) {
+        this.price_room = price_room;
     }
 
 }

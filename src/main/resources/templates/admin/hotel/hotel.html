@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+
+						<li>Quản lý Hotel</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Tables</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Quản lý Hotel</h3>
+						<a href="/admin/hotel/add" class="btn btn-success btn-sm"><span
+							class="glyphicon glyphicon-plus"></span> Thêm khách sạn </a>
+
+						<p th:text="${successMsg}" style="color: blue;">></p>
+						<table id="table" class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Họ tên</th>
+									<th>Địa chỉ</th>
+									<th>Số điện thoại</th>
+									<th>Website</th>
+									<th>Chức năng</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="hotel : ${hotels.data.list}">
+									<td th:text="${hotel.id}">1</td>
+									<td th:text="${hotel.name}">Name</td>
+									<td th:text="${hotel.address}">Address</td>
+									<td th:text="${hotel.phone}">Phone</td>
+									<td th:text="${hotel.website}">Website</td>
+									<td><a th:href="@{/admin/hotel/edit/{id}(id=${hotel.id})}"
+										class="btn btn-success btn-sm"><span
+											class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
+										th:href="@{/admin/hotel/delete/{id}(id=${hotel.id})}"
+										onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+										class="btn btn-danger btn-sm"><span
+											class="glyphicon glyphicon-trash"></span> Xóa </a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>

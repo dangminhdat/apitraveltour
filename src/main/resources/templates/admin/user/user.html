@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+
+						<li>Quản lý User</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Tables</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Quản lý User</h3>
+						<a href="/admin/user/add" class="btn btn-success btn-sm"><span
+							class="glyphicon glyphicon-plus"></span> Thêm User </a>
+
+						<p th:text="${successMsg}" class="alert alert-success"></p>
+						<table id="table" class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Username</th>
+									<th>Tên</th>
+									<th>Email</th>
+									<th>Số điện thoại</th>
+									<th>Chức năng</th>
+								</tr>
+							</thead>
+							<tbody th:if="${users.data != null}">
+								<tr th:each="user : ${users.data.list}">
+									<td th:text="${user.id}">1</td>
+									<td th:text="${user.username}">username</td>
+									<td th:text="${user.fullname}">fullname</td>
+									<td th:text="${user.email}">email</td>
+									<td th:text="${user.phone}">phone</td>
+									<td><button type="button" class="btn btn-info btn-sm">
+											<span class="glyphicon glyphicon-pencil"></span> Sửa
+										</button> <a href="/admin/user/delete/{}" class="btn btn-success btn-sm"><span
+											class="glyphicon glyphicon-trash"></span> Xóa </a></td>
+								</tr>
+							</tbody>
+							<tbody th:unless="${users.data != null}">
+								<tr>
+									<td colspan="6">Hiện chưa có thông tin</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>

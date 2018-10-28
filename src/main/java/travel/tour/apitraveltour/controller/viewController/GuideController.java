@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import common.Constants;
 import common.Constants.Url;
-import travel.tour.apitraveltour.model.modelRequest.User;
+import travel.tour.apitraveltour.model.modelRequest.UserRequest;
 
 @Controller
 @RequestMapping(Url.HANDLER_GUIDE)
@@ -50,10 +50,10 @@ public class GuideController {
         }*/
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<ArrayList<User>> response = restTemplate.exchange("http://localhost:8080/api/userTest",
-                HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<User>>() {
+        ResponseEntity<ArrayList<UserRequest>> response = restTemplate.exchange("http://localhost:8080/api/userTest",
+                HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<UserRequest>>() {
                 });
-        ArrayList<User> users = response.getBody();
+        ArrayList<UserRequest> users = response.getBody();
         // Set data to display.
         ModelAndView mav = new ModelAndView(HANDLE_GUIDE_SCREEN);
         mav.addObject("users", users);

@@ -1,3 +1,10 @@
+/**
+* File ： LoginResponse.java
+* Overview ： LoginResponse class
+*
+* @author TrangHTH
+* @version 1.0
+*/
 package travel.tour.apitraveltour.model.modelResponse;
 
 public class LoginResponse {
