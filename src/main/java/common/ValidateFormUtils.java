@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.validation.BindingResult;
 
+import travel.tour.apitraveltour.model.Guide;
 import travel.tour.apitraveltour.model.Hotel;
 
 public class ValidateFormUtils {
@@ -22,6 +23,7 @@ public class ValidateFormUtils {
      * Validate form add empty
      * 
      * @param bingdingResult
+     * @param Hotel
      */
     public static void checkEmpty(Hotel hotel, BindingResult bindingResult) {
         // Check name hotel
@@ -42,6 +44,31 @@ public class ValidateFormUtils {
         // Check phone hotel
         if (hotel.getWebsite().isEmpty()) {
             bindingResult.rejectValue(null, "websiteHotelEmpty", null, null);
+        }
+
+        return;
+    }
+
+    /**
+     * Validate form add empty
+     * 
+     * @param bingdingResult
+     * @param Guide
+     */
+    public static void checkEmpty(Guide guide, BindingResult bindingResult) {
+        // Check name hotel
+        if (guide.getName().isEmpty()) {
+            bindingResult.rejectValue(null, "nameEmpty", null, null);
+        }
+
+        // Check address hotel
+        if (guide.getAddress().isEmpty()) {
+            bindingResult.rejectValue(null, "addressEmpty", null, null);
+        }
+
+        // Check phone hotel
+        if (guide.getPhone().isEmpty()) {
+            bindingResult.rejectValue(null, "phoneEmpty", null, null);
         }
 
         return;

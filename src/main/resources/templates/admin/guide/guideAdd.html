@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						
+						<li><a th:href="@{/admin/guide}">Quản lý hướng dẫn viên</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Thêm hướng dẫn viên</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Form</h3>
+						<p th:text="${failMsg}" style="color:red;">></p>
+						<div class="form-body">
+							<form id="formAdd" method="POST" th:action="@{/admin/guide/add}"
+								th:object="${guideAdd}">
+								<ul style="padding-left: 0px;" class="form-group">
+									<li style="list-style-position: inside; color: red;"
+										th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+								</ul>
+								<div class="form-group">
+									<label for="usr">Tên hướng dẫn viên</label> <input name="name" type="text" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label>Địa chỉ:</label> <input name="address" type="text" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label>Phone:</label> <input name="phone" type="text" class="form-control" />
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $('#formAdd').validate({
+            ignore: [],
+            debug: false,
+            rules: {
+                name: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+            },
+            messages:{
+                name: {
+                    required: "Mời bạn nhập tên hướng dẫn viên",
+                },
+                address: {
+                    required: "Mời bạn nhập địa chỉ của hướng dẫn viên",
+                },
+                phone: {
+                    required: "Mời bạn nhập số điện thoại của hướng dẫn viên",
+                },
+            }
+        });                 
+    });
+</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>
