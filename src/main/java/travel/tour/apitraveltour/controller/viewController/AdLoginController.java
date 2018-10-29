@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import common.Constants.Characters;
 import common.Constants.SessionKey;
 import common.Constants.Url;
-import travel.tour.apitraveltour.model.modelRequest.User;
+import travel.tour.apitraveltour.model.modelRequest.UserRequest;
 import travel.tour.apitraveltour.model.modelResponse.LoginResponse;
 
 @Controller
@@ -60,7 +59,7 @@ public class AdLoginController {
         }
         // Show login normal
         ModelAndView mav = new ModelAndView(ADMIN_LOGIN_SCREEN);
-        mav.addObject("userLogin", new User());
+        mav.addObject("userLogin", new UserRequest());
         return mav;
     }
 
@@ -70,7 +69,7 @@ public class AdLoginController {
      * @return
      */
     @RequestMapping(value = Characters.BLANK, method = RequestMethod.POST)
-    public ModelAndView loginProcess(@Valid @ModelAttribute("userLogin") User userLogin, BindingResult bindingResult,
+    public ModelAndView loginProcess(@Valid @ModelAttribute("userLogin") UserRequest userLogin, BindingResult bindingResult,
             HttpSession session) {
 
         ModelAndView mav = new ModelAndView(ADMIN_LOGIN_SCREEN);

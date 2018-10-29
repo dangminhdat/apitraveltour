@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class UserRequest {
      
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +33,11 @@ public class User {
     
     private String remember_token;
  
-    public User() {
+    public UserRequest() {
  
     }
  
-    public User(int id, String username, String password, int active, String remember_token) {
+    public UserRequest(int id, String username, String password, int active, String remember_token) {
         this.id = id;
         this.username = username;
         this.password = password;

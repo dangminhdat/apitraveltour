@@ -48,14 +48,14 @@ public class TopPageController extends AbstractUserController {
             return new ModelAndView(result);
         }
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<ArrayList<Hotel>> response = restTemplate.exchange("http://localhost:8080/api/hotelTest",
-                HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Hotel>>() {
-                });
-        ArrayList<Hotel> hotels = response.getBody();
+//        RestTemplate restTemplate = new RestTemplate();
+//        ResponseEntity<ArrayList<Hotel>> response = restTemplate.exchange("http://localhost:8080/api/hotelTest",
+//                HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Hotel>>() {
+//                });
+//        ArrayList<Hotel> hotels = response.getBody();
         // Set data to display.
         ModelAndView mav = new ModelAndView(TOP_PAGE_SCREEN);
-        mav.addObject("users", hotels);
+//        mav.addObject("users", hotels);
         return mav;
     }
 }
