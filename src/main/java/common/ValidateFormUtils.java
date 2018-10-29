@@ -41,9 +41,13 @@ public class ValidateFormUtils {
 
         // Check phone hotel
         if (hotel.getWebsite().isEmpty()) {
-            bindingResult.rejectValue(null, "websiteHotelEmpty", null, null);
+            bindingResult.rejectValue(null,"websiteHotelEmpty", null, null);
         }
 
+        // Check price_room hotel
+        if (hotel.getPrice_room() == 0) {
+            bindingResult.rejectValue(null, "websiteHotelEmpty", null, null);
+        }
         return;
     }
 
