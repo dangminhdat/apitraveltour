@@ -34,6 +34,10 @@
 										th:each="err : ${#fields.errors('*')}" th:text="${err}" />
 								</ul>
 								<div class="form-group">
+								<p th:text="${failPhoneMsg}" style="color: red;"></p>
+								</div>
+								
+								<div class="form-group">
 								<input type="hidden" th:value="${guide.id}" name="id"/>
 									<label for="usr">Tên hướng dẫn viên:</label> <input type="text"
 										th:value="${guide.name}" name="name" class="form-control" />
@@ -45,7 +49,6 @@
 								<div class="form-group">
 									<label>Phone:</label> <input th:value="${guide.phone}"
 										name="phone" type="text" class="form-control" />
-									<p th:text="${failPhoneMsg}" style="color: red;"></p>
 								</div>
 								<button type="submit" class="btn btn-default">Submit</button>
 							</form>

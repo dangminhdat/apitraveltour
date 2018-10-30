@@ -150,10 +150,12 @@ public class GuideController extends AbstractUserController {
 
         // Validate check form empty
         ValidateFormUtils.checkEmpty(guideAdd, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return mav;
+        }
 
         // Check format phone
         ValidateFormUtils.validatePhoneNumber(guideAdd.getPhone(), bindingResult);
-
         if (bindingResult.hasErrors()) {
             return mav;
         }
