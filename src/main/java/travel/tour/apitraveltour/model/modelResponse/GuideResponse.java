@@ -7,12 +7,19 @@
 */
 package travel.tour.apitraveltour.model.modelResponse;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import travel.tour.apitraveltour.model.Guide;
 
-public class GuideResponse {
+public class GuideResponse<T> {
+    @JsonProperty("result_code")
     private int result_code;
+    
+    @JsonProperty("result_message")
     private String result_message;
-    private Guide data;
+    
+    @JsonProperty("data")
+    private T data;
 
     public int getResultCode() {
         return result_code;
@@ -30,11 +37,11 @@ public class GuideResponse {
         this.result_message = resultMessage;
     }
 
-    public Guide getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Guide data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

@@ -28,22 +28,27 @@ public class ValidateFormUtils {
     public static void checkEmpty(Hotel hotel, BindingResult bindingResult) {
         // Check name hotel
         if (hotel.getName().isEmpty()) {
-            bindingResult.rejectValue(null, "nameHotelEmpty", null, null);
+            bindingResult.rejectValue("name", "nameHotelEmpty", null, null);
         }
 
         // Check address hotel
         if (hotel.getAddress().isEmpty()) {
-            bindingResult.rejectValue(null, "addressHotelEmpty", null, null);
+            bindingResult.rejectValue("address", "addressHotelEmpty", null, null);
         }
 
         // Check phone hotel
         if (hotel.getPhone().isEmpty()) {
-            bindingResult.rejectValue(null, "phoneHotelEmpty", null, null);
+            bindingResult.rejectValue("phone", "phoneHotelEmpty", null, null);
         }
 
-        // Check phone hotel
+        // Check website hotel
         if (hotel.getWebsite().isEmpty()) {
-            bindingResult.rejectValue(null, "websiteHotelEmpty", null, null);
+            bindingResult.rejectValue("website", "websiteHotelEmpty", null, null);
+        }
+        
+        // Check phone hotel
+        if (hotel.getPrice_room() == 0) {
+            bindingResult.rejectValue("price_room", "priceRoomWrong", null, null);
         }
 
         return;
@@ -58,17 +63,17 @@ public class ValidateFormUtils {
     public static void checkEmpty(Guide guide, BindingResult bindingResult) {
         // Check name hotel
         if (guide.getName().isEmpty()) {
-            bindingResult.rejectValue(null, "nameEmpty", null, null);
+            bindingResult.rejectValue("name", "nameEmpty", null, null);
         }
 
         // Check address hotel
         if (guide.getAddress().isEmpty()) {
-            bindingResult.rejectValue(null, "addressEmpty", null, null);
+            bindingResult.rejectValue("address", "addressEmpty", null, null);
         }
 
         // Check phone hotel
         if (guide.getPhone().isEmpty()) {
-            bindingResult.rejectValue(null, "phoneEmpty", null, null);
+            bindingResult.rejectValue("phone", "phoneEmpty", null, null);
         }
 
         return;
@@ -89,7 +94,7 @@ public class ValidateFormUtils {
                 || phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) {
             return;
         } else {
-            bindingResult.rejectValue(null, "phoneNoWrong", null, null);
+            bindingResult.rejectValue("phone", "phoneNoWrong", null, null);
             return;
         }
 
@@ -104,7 +109,7 @@ public class ValidateFormUtils {
         Matcher matcher;
         matcher = WEBSITE_PATTERN.matcher(website);
         if (!matcher.matches()) {
-            bindingResult.rejectValue(null, "websiteWrong", null, null);
+            bindingResult.rejectValue("website", "websiteWrong", null, null);
         }
         return;
     }
@@ -120,7 +125,7 @@ public class ValidateFormUtils {
         if (number.matches("^\\d+$") || number.matches("^[+]?\\d+(\\.\\d+)?$")) {
             return;
         } else {
-            bindingResult.rejectValue(null, "priceRoomWrong", null, null);
+            bindingResult.rejectValue("price_room", "priceRoomWrong", null, null);
             return;
         }
     }

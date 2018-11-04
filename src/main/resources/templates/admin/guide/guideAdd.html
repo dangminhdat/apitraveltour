@@ -25,22 +25,23 @@
 				<div class="agile-tables">
 					<div class="graph-form agile_info_shadow">
 						<h3 class="w3_inner_tittle two">Form</h3>
-						<p th:text="${failMsg}" style="color:red;">></p>
+						<div class="form-group">
+						  <p th:text="${failMsg}" style="color:red;">></p>
+						</div>
 						<div class="form-body">
 							<form id="formAdd" method="POST" th:action="@{/admin/guide/add}"
 								th:object="${guideAdd}">
-								<ul style="padding-left: 0px;" class="form-group">
-									<li style="list-style-position: inside; color: red;"
-										th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-								</ul>
 								<div class="form-group">
-									<label for="usr">Tên hướng dẫn viên</label> <input name="name" type="text" class="form-control" />
+									<label for="usr">Tên hướng dẫn viên</label> <input name="name" type="text" class="form-control" th:value="${guideAdd.name}"/>
+									<p  th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Địa chỉ:</label> <input name="address" type="text" class="form-control" />
+									<label>Địa chỉ:</label> <input name="address" type="text" class="form-control" th:value="${guideAdd.address}"/>
+									<p  th:each="err : ${#fields.errors('address')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Phone:</label> <input name="phone" type="text" class="form-control" />
+									<label>Phone:</label> <input name="phone" type="text" class="form-control" th:value="${guideAdd.phone}"/>
+									<p  th:each="err : ${#fields.errors('phone')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<button type="submit" class="btn btn-default">Submit</button>
 							</form>

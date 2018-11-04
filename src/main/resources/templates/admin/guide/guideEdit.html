@@ -25,30 +25,29 @@
 				<div class="agile-tables">
 					<div class="graph-form agile_info_shadow">
 						<h3 class="w3_inner_tittle two">Form</h3>
+						<div class="form-group">
+						<div class="form-group">
 						<p th:text="${failMsg}" style="color: red;"></p>
+						</div>
+						</div>
 						<div class="form-body">
 							<form id="formEdit" method="POST"
-								th:action="@{/admin/guide/edit/{id}(id=${guide.id})}" th:object="${guideEdit}">
-								<ul style="padding-left: 0px;" class="form-group">
-									<li style="list-style-position: inside; color: red;"
-										th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-								</ul>
+								th:action="@{/admin/guide/edit/{id}(id=${guideEdit.id})}" th:object="${guideEdit}">
 								<div class="form-group">
-								<p th:text="${failPhoneMsg}" style="color: red;"></p>
-								</div>
-								
-								<div class="form-group">
-								<input type="hidden" th:value="${guide.id}" name="id"/>
+								<input type="hidden" th:value="${guideEdit.id}" name="id"/>
 									<label for="usr">Tên hướng dẫn viên:</label> <input type="text"
-										th:value="${guide.name}" name="name" class="form-control" />
+										th:value="${guideEdit.name}" name="name" class="form-control" />
+									<p th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
 									<label>Địa chỉ:</label> <input name="address" type="text"
-										th:value="${guide.address}" class="form-control" />
+										th:value="${guideEdit.address}" class="form-control" />
+									<p th:each="err : ${#fields.errors('address')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Phone:</label> <input th:value="${guide.phone}"
+									<label>Phone:</label> <input th:value="${guideEdit.phone}"
 										name="phone" type="text" class="form-control" />
+									<p th:each="err : ${#fields.errors('phone')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<button type="submit" class="btn btn-default">Submit</button>
 							</form>

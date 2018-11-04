@@ -11,6 +11,9 @@ public class Constants {
 
     public class Url {
 
+        // Home url base
+        public static final String HOME = "/home";
+
         // Admin url base
         public static final String ADMIN = "/admin";
 
