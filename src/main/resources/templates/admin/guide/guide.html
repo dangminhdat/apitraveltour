@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+
+						<li>Quản lý Hướng dẫn viên</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Tables</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Quản lý hướng dẫn viên</h3>
+						<a th:href="@{/admin/guide/add}" class="btn btn-success btn-sm"><span
+							class="glyphicon glyphicon-plus"></span> Thêm hướng dẫn viên </a>
+
+						<p th:text="${successMsg}" style="color: blue;">></p>
+						<table id="table" class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Họ tên</th>
+									<th>Địa chỉ</th>
+									<th>Số điện thoại</th>
+									<th>Chức năng</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="guide : ${guides.data.list}">
+									<td th:text="${guide.id}">1</td>
+									<td th:text="${guide.name}">Name</td>
+									<td th:text="${guide.address}">Address</td>
+									<td th:text="${guide.phone}">Phone</td>
+									<td><a th:href="@{/admin/guide/edit/{id}(id=${guide.id})}"
+										class="btn btn-success btn-sm"><span
+											class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
+										th:href="@{/admin/guide/delete/{id}(id=${guide.id})}"
+										onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+										class="btn btn-danger btn-sm"><span
+											class="glyphicon glyphicon-trash"></span> Xóa </a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>

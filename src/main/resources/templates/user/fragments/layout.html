@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="HandheldFriendly" content="True" />
+<title>Book Your Travel - Booking</title>
+<link rel="stylesheet" th:href="@{/user/css/style.css}" type="text/css"
+	media="screen,projection,print" />
+<link rel="stylesheet" th:href="@{/user/css/prettyPhoto.css}" type="text/css"
+	media="screen" />
+<link rel="shortcut icon" th:href="@{/user/images/favicon.ico}" />
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script type="text/javascript" th:src="@{/user/js/css3-mediaqueries.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/jquery.uniform.min.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/jquery.prettyPhoto.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/selectnav.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/scripts.js}"></script>
+</head>
+<body>
+	<!--Start header -->
+	<th:block th:replace="user/fragments/header :: header"></th:block>
+	<!--End header -->
+
+	<!--Start content -->
+	<th:block layout:fragment="content"></th:block>
+	<!--End content -->
+	
+	<!--Start footer -->
+	<th:block th:replace="user/fragments/footer :: footer"></th:block>
+	<!--End footer -->
+</body>
+</html>

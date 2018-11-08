@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						
+						<li><a th:href="@{/admin/hotel}">Quản lý khách sạn</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Thêm khách sạn</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Form</h3>
+						<div class="form-group">
+						<p th:text="${failMsg}" style="color:red;">></p>
+						</div>
+						<div class="form-body">
+							<form id="formAdd" method="POST" th:action="@{/admin/hotel/add}"
+								th:object="${hotelAdd}">
+								<div class="form-group">
+									<label for="usr">Tên khách sạn:</label> <input name="name" type="text" class="form-control" th:value="${hotelAdd.name}"/>
+									<p  th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color:red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Địa chỉ:</label> <input name="address" type="text" class="form-control" th:value="${hotelAdd.address}"/>
+									<p  th:each="err : ${#fields.errors('address')}" th:text="${err}" style="color:red;">Incorrect date</p>
+									
+								</div>
+								<div class="form-group">
+									<label>Phone:</label> <input name="phone" type="text" class="form-control" th:value="${hotelAdd.phone}"/>
+									<p  th:each="err : ${#fields.errors('phone')}" th:text="${err}" style="color:red;">Incorrect date</p>
+									
+								</div>
+								<div class="form-group">
+									<label>Website:</label> <input name="website" type="text" class="form-control" th:value="${hotelAdd.website}"/>
+									<p  th:each="err : ${#fields.errors('website')}" th:text="${err}" style="color:red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Giá phòng:</label> <input name="price_room" type="text" class="form-control" th:value="${hotelAdd.price_room}"/>
+									<p  th:each="err : ${#fields.errors('price_room')}" th:text="${err}" style="color:red;">Incorrect date</p>
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $('#formAdd').validate({
+            ignore: [],
+            debug: false,
+            rules: {
+                name: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                website: {
+                    required: true,
+                },
+                price_room: {
+                    required: true,
+                    digits: true,
+                },
+            },
+            messages:{
+                name: {
+                    required: "Mời bạn nhập tên khách sạn",
+                },
+                address: {
+                    required: "Mời bạn nhập địa chỉ khách sạn",
+                },
+                phone: {
+                    required: "Mời bạn nhập số điện thoại khách sạn",
+                },
+                website: {
+                    required: "Mời bạn nhập địa chỉ website của khách sạn",
+                },
+                price_room: {
+                    required: "Mời bạn nhập giá phòng",
+                    digits: "Vui lòng nhập đúng định dạng"
+                },
+            }
+        });                 
+    });
+</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>
