@@ -40,12 +40,8 @@ import common.Constants.Url;
 import common.URI.API;
 import common.ValidateFormUtils;
 import travel.tour.apitraveltour.model.DataGuideAPI;
-import travel.tour.apitraveltour.model.DataHotelAPI;
 import travel.tour.apitraveltour.model.Guide;
-import travel.tour.apitraveltour.model.Hotel;
 import travel.tour.apitraveltour.model.modelResponse.GuideResponse;
-import travel.tour.apitraveltour.model.modelResponse.GuidesResponse;
-import travel.tour.apitraveltour.model.modelResponse.HotelResponse;
 
 @Controller
 @RequestMapping(Url.HANDLER_GUIDE)

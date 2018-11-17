@@ -42,7 +42,6 @@ import common.ValidateFormUtils;
 import travel.tour.apitraveltour.model.DataHotelAPI;
 import travel.tour.apitraveltour.model.Hotel;
 import travel.tour.apitraveltour.model.modelResponse.HotelResponse;
-import travel.tour.apitraveltour.model.modelResponse.HotelsResponse;
 
 @Controller
 @RequestMapping(Url.HANDLER_HOTEL)

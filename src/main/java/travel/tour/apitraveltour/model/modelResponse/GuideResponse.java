@@ -9,8 +9,6 @@ package travel.tour.apitraveltour.model.modelResponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import travel.tour.apitraveltour.model.Guide;
-
 public class GuideResponse<T> {
     @JsonProperty("result_code")
     private int result_code;

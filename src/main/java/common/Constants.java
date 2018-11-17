@@ -34,6 +34,15 @@ public class Constants {
 
         // Tour screen
         public static final String HANDLER_TOUR = "admin/tour";
+
+        // Review screen
+        public static final String HANDLER_REVIEW = "admin/review";
+        
+        // Profile screen
+        public static final String HANDLER_PROFILE = "admin/profile";
+        
+        // Logout
+        public static final String LOGOUT = "logout";
     }
 
     public class Characters {
