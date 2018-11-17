@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+
+						<li>Quản lý Tour</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Tables</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Quản lý Tour</h3>
+						<a href="/admin/hotel/add" class="btn btn-success btn-sm"><span
+							class="glyphicon glyphicon-plus"></span> Thêm tour </a>
+
+						<p th:text="${successMsg}" style="color: blue;">></p>
+						<div>
+							<table id="table" class="table table-striped">
+								<thead>
+									<tr>
+										<th>Mã tour</th>
+										<th>Ngày khởi hành</th>
+										<th>Giờ khởi hành</th>
+										<th>Nơi tập trung</th>
+										<th>Giá người lớn</th>
+										<th>Giá trẻ em</th>
+										<th>Tên hướng dẫn viên</th>
+										<th>Số chổ</th>
+										<th>Khách sạn</th>
+										<th>Chức năng</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="tour : ${detailTours.data.list}">
+										<td th:text="${tour.id}">1</td>
+										<td th:text="${tour.date_depart}">Ngày khởi hành</td>
+										<td th:text="${tour.time_depart}">Giờ khởi hành</td>
+										<td th:text="${tour.address_depart}">Nơi tập trung</td>
+										<td th:text="${tour.price_adults}">Giá người lớn</td>
+										<td th:text="${tour.price_childs}">Giá trẻ em</td>
+										<td th:text="${tour.guide.name}">Tên hướng dẫn viên</td>
+										<td th:text="${tour.slot}">Sổ chổ</td>
+										<td>
+											<p th:each="hotel : ${tour.hotel}"
+												th:text="${hotel.name}">Message</p>
+										</td>
+										<td><a class="btn btn-success btn-sm"><span
+												class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
+											onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+											class="btn btn-danger btn-sm"><span
+												class="glyphicon glyphicon-trash"></span> Xóa </a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>

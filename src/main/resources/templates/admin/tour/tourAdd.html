@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/hotel}">Quản lý khách sạn</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Thêm khách sạn</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Form</h3>
+						<div class="form-group">
+							<p th:text="${failMsg}" style="color: red;">></p>
+						</div>
+						<div class="form-body">
+							<form id="formAdd" method="POST" th:action="@{/admin/tour/add}" th:object="${tourAdd}" enctype="multipart/form-data">
+								<div class="form-group">
+									<label for="usr">Tên tour</label>
+									<input name="name" type="text" class="form-control" th:value="${tourAdd.name}" />
+									<p th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label for="usr">So ngay</label>
+									<input name="number_days" type="number" class="form-control" th:value="${tourAdd.number_days}" />
+									<p th:each="err : ${#fields.errors('number_days')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Item tour</label>
+									<input name="item_tour" type="text" class="form-control" th:value="${tourAdd.item_tour}" />
+									<p th:each="err : ${#fields.errors('item_tour')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Giam gia:</label>
+									<input name="discount" type="number" class="form-control" th:value="${tourAdd.discount}" />
+									<p th:each="err : ${#fields.errors('discount')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Hinh anh:</label>
+									<input name="images" type="file" class="form-control"/>
+									<p th:each="err : ${#fields.errors('images')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Programs:</label>
+									<textarea id="ckeditor" class="form-control" rows="5" name="programs" th:value="${tourAdd.programs}"></textarea>
+									<p th:each="err : ${#fields.errors('programs')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Note:</label>
+									<textarea id="ckeditor" class="form-control" rows="5" name="note" th:value="${tourAdd.note}"></textarea>
+									<p th:each="err : ${#fields.errors('note')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Loai tour</label> <select th:field="*{id_type_tour}">
+										<option th:value="1">Tour trong nuoc</option>
+										<option th:value="2">Tour ngoai nuoc</option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+<script type="text/javascript" >
+  var editor = CKEDITOR.replace( 'ckeditor' );
+    CKFinder.setupCKEditor( editor, '/ckfinder/' );
+</script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $('#formAdd').validate({
+            ignore: [],
+            debug: false,
+            rules: {
+                name: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                website: {
+                    required: true,
+                },
+                price_room: {
+                    required: true,
+                    digits: true,
+                },
+            },
+            messages:{
+                name: {
+                    required: "Mời bạn nhập tên khách sạn",
+                },
+                address: {
+                    required: "Mời bạn nhập địa chỉ khách sạn",
+                },
+                phone: {
+                    required: "Mời bạn nhập số điện thoại khách sạn",
+                },
+                website: {
+                    required: "Mời bạn nhập địa chỉ website của khách sạn",
+                },
+                price_room: {
+                    required: "Mời bạn nhập giá phòng",
+                    digits: "Vui lòng nhập đúng định dạng"
+                },
+            }
+        });                 
+    });
+</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>
