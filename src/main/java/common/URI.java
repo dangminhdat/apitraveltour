@@ -26,6 +26,12 @@ public class URI {
         // API control tour
         public static final String URI_TOUR = "https://apitour.herokuapp.com/api/tour";
 
+        // API control detail tour
+        public static final String URI_DETAIL_TOUR = "https://apitour.herokuapp.com/api/detail";
+
+        // API upload images
+        public static final String URI_UPLOAD_IMG = "https://apitour.herokuapp.com/api/upload";
+
         // API control review
         public static final String URI_REVIEW = "https://apitour.herokuapp.com/api/review";
 

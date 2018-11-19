@@ -13,7 +13,7 @@
 					<ul>
 						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
 
-						<li><a th:href="@{/admin/hotel}">Quản lý khách sạn</a></li>
+						<li><a th:href="@{/admin/tour}">Quản lý Tour</a></li>
 					</ul>
 				</div>
 			</div>
@@ -52,8 +52,8 @@
 								</div>
 								<div class="form-group">
 									<label>Hinh anh:</label>
-									<input name="images" type="file" class="form-control"/>
-									<p th:each="err : ${#fields.errors('images')}" th:text="${err}" style="color: red;">Incorrect date</p>
+									<input name="imagesAdd" type="file" class="form-control"/>
+									<!-- <p th:each="err : ${#fields.errors('images')}" th:text="${err}" style="color: red;">Incorrect date</p> -->
 								</div>
 								<div class="form-group">
 									<label>Programs:</label>

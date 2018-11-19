@@ -21,7 +21,7 @@ public class TourAdd {
 
     private Integer discount;
 
-    private MultipartFile images;
+    private String images;
 
     private int id_type_tour;
 
@@ -61,11 +61,11 @@ public class TourAdd {
         this.discount = discount;
     }
 
-    public MultipartFile getImages() {
+    public String getImages() {
         return images;
     }
 
-    public void setImages(MultipartFile images) {
+    public void setImages(String images) {
         this.images = images;
     }
 
