@@ -49,7 +49,7 @@
 									<td th:text="${tour.name}">Name</td>
 									<td th:text="${tour.numberDays}">Số ngày</td>
 									<td th:text="${tour.discount}">Giảm giá</td>
-									<td><img alt="hình ảnh tour" th:src="@{admin/{images}(images=${tour.images})}" /></td>
+									<td><img alt="hình ảnh tour" th:src="@{https://apitour.herokuapp.com/uploads/{images}(images=${tour.images})}" /></td>
 									<div th:switch="${tour.typeTour}">
 									<td th:case="1">Tour trong nước</td>
 									<td th:case="2">Tour ngoài nước</td>
@@ -59,7 +59,7 @@
 									class="btn btn-success btn-sm"><span
 									class="glyphicon glyphicon-pencil"></span> Chi tiết </a>
 									</td>
-									<td><a 
+									<td><a th:href="@{/admin/tour/edit/{id}(id=${tour.id})}"
 										class="btn btn-success btn-sm"><span
 											class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
 										th:href="@{/admin/tour/delete/{id}(id=${tour.id})}"

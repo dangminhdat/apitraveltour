@@ -26,7 +26,7 @@
 				<div class="agile-tables">
 					<div class="w3l-table-info agile_info_shadow">
 						<h3 class="w3_inner_tittle two">Quản lý Tour</h3>
-						<a href="/admin/hotel/add" class="btn btn-success btn-sm"><span
+						<a th:href="@{/admin/tour/detail/{id}/detailTourAdd(id=${id_tour})}" class="btn btn-success btn-sm"><span
 							class="glyphicon glyphicon-plus"></span> Thêm tour </a>
 
 						<p th:text="${successMsg}" style="color: blue;">></p>
@@ -62,7 +62,7 @@
 										</td>
 										<td><a class="btn btn-success btn-sm"><span
 												class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
-												th:href="@{/admin/tour/detail/delete/{id}(id=${tour.id})}"
+												th:href="@{/admin/tour/detail/{id_tour}/delete/{id}(id=${tour.id},id_tour=${id_tour})}"
 											onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
 											class="btn btn-danger btn-sm"><span
 												class="glyphicon glyphicon-trash"></span> Xóa </a></td>

@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/tour}">Quản lý Tour</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Thêm Detail Tour</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Form</h3>
+						<div class="form-group">
+							<p th:text="${failMsg}" style="color: red;">></p>
+						</div>
+						<div class="form-body">
+							<form id="formAdd" method="POST"
+								th:action="@{/admin/tour/detail/{id}/detailTourAdd(id=${id_tour})}"
+								th:object="${detailTourAdd}">
+								<div class="form-group">
+									<label for="usr">Ngày khởi hành</label> <input
+										name="date_depart" type="date" class="form-control"
+										th:value="${detailTourAdd.date_depart}" />
+									<p th:each="err : ${#fields.errors('date_depart')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label for="usr">Giá vé người lớn</label> <input
+										name="price_adults" type="number" class="form-control"
+										th:value="${detailTourAdd.price_adults}" />
+									<p th:each="err : ${#fields.errors('price_adults')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Giá vé tre em</label> <input name="price_childs"
+										type="number" class="form-control"
+										th:value="${detailTourAdd.price_childs}" />
+									<p th:each="err : ${#fields.errors('price_childs')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Gio khoi hanh</label> <input name="time_depart"
+										type="time" class="form-control"
+										th:value="${detailTourAdd.time_depart}" />
+									<p th:each="err : ${#fields.errors('time_depart')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Dia diem khoi hanh</label> <input name="address_depart"
+										type="text" class="form-control"
+										th:value="${detailTourAdd.address_depart}" />
+									<p th:each="err : ${#fields.errors('address_depart')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Cho trong</label> <input name="slot" type="number"
+										class="form-control" th:value="${detailTourAdd.slot}" />
+									<p th:each="err : ${#fields.errors('slot')}" th:text="${err}"
+										style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Huong dan vien</label> <select th:field="*{id_guide}">
+										<option th:each="guide : ${guides.data.list}"
+											th:value="${guide.id}" th:text="${guide.name}">Wireframe</option>
+									</select>
+								</div>
+								<!-- <div class="form-group">
+									<label>Tour</label> <select th:field="*{id_tour}">
+										<option th:each="tour : ${tours.data.list}"
+											th:value="${tour.id}" th:text="${tour.name}">Wireframe</option>
+									</select>
+								</div> -->
+								<div class="form-group">
+									<label>Khach san</label>
+									<ul>
+										<li th:each="hotel : ${hotels.data.list}"><input
+											type="checkbox" th:field="*{id_hotel}" th:value="${hotel.id}" />
+											<label th:text="${hotel.name}">Heating</label></li>
+									</ul>
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+<script type="text/javascript">
+  var editor = CKEDITOR.replace( 'ckeditor' );
+    CKFinder.setupCKEditor( editor, '/ckfinder/' );
+</script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $('#formAdd').validate({
+            ignore: [],
+            debug: false,
+            rules: {
+                date_depart: {
+                    required: true,
+                    date: true,
+                },
+                price_adults: {
+                    required: true,
+                    number: true,
+                },
+                price_childs: {
+                    required: true,
+                    number: true,
+                },
+                time_depart: {
+                    required: true,
+                },
+                address_depart: {
+                    required: true,
+                },
+                slot: {
+                    required: true,
+                }
+            },
+            messages:{
+                date_depart: {
+                    required: "Mời bạn nhập ngay khoi hanh",
+                    date: "Vui long nhap dung dinh dang ngay"
+                },
+                price_adults: {
+                    required: "Mời bạn nhập gia ve cho nguoi lon",
+                    number: "Vui long nhap dung dinh dang gia ve"
+                },
+                price_childs: {
+                    required: "Mời bạn nhập gia ve cho tre em",
+                    number: "Vui long nhap dung dinh dang gia ve"
+                },
+                time_depart: {
+                    required: "Mời bạn nhập thoi gian khoi hanh",
+                },
+                address_depart: {
+                    required: "Mời bạn nhập dia chi khoi hanh",
+                },
+                slot: {
+                    required: "Vui long nhap so cho ngoi con trong"
+                }
+            }
+        });                 
+    });
+</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>

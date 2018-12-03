@@ -7,8 +7,12 @@
 */
 package travel.tour.apitraveltour.controller.viewController;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -53,10 +57,16 @@ import common.Constants.SessionKey;
 import common.Constants.Url;
 import common.URI.API;
 import travel.tour.apitraveltour.model.DataDetailTourAPI;
+import travel.tour.apitraveltour.model.DataGuideAPI;
+import travel.tour.apitraveltour.model.DataHotelAPI;
 import travel.tour.apitraveltour.model.DataTourAPI;
+import travel.tour.apitraveltour.model.DetailTour;
+import travel.tour.apitraveltour.model.Guide;
 import travel.tour.apitraveltour.model.Hotel;
 import travel.tour.apitraveltour.model.Tour;
 import travel.tour.apitraveltour.model.TourAdd;
+import travel.tour.apitraveltour.model.modelRequest.DetailTourRequest;
+import travel.tour.apitraveltour.model.modelResponse.GuideResponse;
 import travel.tour.apitraveltour.model.modelResponse.HotelResponse;
 import travel.tour.apitraveltour.model.modelResponse.TourResponse;
 
@@ -78,6 +88,12 @@ public class TourController extends AbstractUserController {
 
     // Add tour Screen.
     public static final String ADD_TOUR_SCREEN = "admin/tour/tourAdd";
+
+    // Add detail tour Screen.
+    public static final String ADD_DETAIL_TOUR_SCREEN = "admin/tour/detailTourAdd";
+
+    // Edit detail tour Screen.
+    public static final String EDIT_DETAIL_TOUR_SCREEN = "admin/tour/detailTourEdit";
 
     // Redirect tour Add screen.
     public static final String REDIRECT_TOUR_ADD = "redirect:/admin/tour/add";
@@ -196,13 +212,31 @@ public class TourController extends AbstractUserController {
                 headers);
 
         // Repare images to add with API.UPLOAD_IMG
-        File file = new File(imagesAdd.getOriginalFilename());
-//        File file = new File("C:\\Users\\Admin\\Desktop\\Shoes\\1.png");
+        // File file = new File(imagesAdd.getOriginalFilename());
+        File file = new File("C:\\Users\\Admin\\Desktop\\uploads\\", imagesAdd.getOriginalFilename());
         imagesAdd.transferTo(file);
         LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
         map.add("images", new FileSystemResource(file));
         HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
                 map, headers);
+
+        // byte[] bytes = imagesAdd.getBytes();
+        // BufferedOutputStream stream = new BufferedOutputStream(
+        // new FileOutputStream(new File("D:\\" + imagesAdd.getName())));
+        // stream.write(bytes);
+        // stream.close();
+
+        // MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+        // Object>();
+        // map.add("images", imagesAdd);//new FileSystemResource("D:\\" +
+        // uploadFiles.getName() ));
+        // HttpEntity<MultiValueMap<String, Object>> request = new
+        // HttpEntity<MultiValueMap<String, Object>>(parts, headers);
+
+        // TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG,
+        // HttpMethod.POST, request,new
+        // ParameterizedTypeReference<TourResponse<String>>() {}).getBody();
+        // return new ModelAndView(REDIRECT_TOUR);
         try {
             TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG, HttpMethod.POST, requestImage,
                     new ParameterizedTypeReference<TourResponse<String>>() {
@@ -266,16 +300,17 @@ public class TourController extends AbstractUserController {
     }
 
     /**
-     * Process delete tour
+     * Process delete detail tour
      * 
      * @return
      * @throws IOException
      * @throws JsonMappingException
      * @throws JsonParseException
      */
-    @RequestMapping(value = "detail/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteDetailHotelProcess(@Valid @PathVariable int id, HttpSession session,
-            RedirectAttributes redirectAttr) throws JsonParseException, JsonMappingException, IOException {
+    @RequestMapping(value = "detail/{id_tour}/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteDetailTourProcess(@Valid @PathVariable int id, @PathVariable int id_tour,
+            HttpSession session, RedirectAttributes redirectAttr)
+            throws JsonParseException, JsonMappingException, IOException {
         // Check session and role of user login
         String result = checkSessionAndRole();
 
@@ -305,7 +340,7 @@ public class TourController extends AbstractUserController {
             redirectAttr.addFlashAttribute("failMsg", tour.getResultMessage());
         }
         // Return hotel screen
-        return new ModelAndView(REDIRECT_TOUR);
+        return new ModelAndView("redirect:/admin/tour/detail/" + id_tour);
     }
 
     /**
@@ -317,7 +352,7 @@ public class TourController extends AbstractUserController {
      * @throws JsonParseException
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteHotelProcess(@Valid @PathVariable int id, HttpSession session,
+    public ModelAndView deleteTourProcess(@Valid @PathVariable int id, HttpSession session,
             RedirectAttributes redirectAttr) throws JsonParseException, JsonMappingException, IOException {
         // Check session and role of user login
         String result = checkSessionAndRole();
@@ -350,4 +385,210 @@ public class TourController extends AbstractUserController {
         // Return hotel screen
         return new ModelAndView(REDIRECT_TOUR);
     }
+
+    /**
+     * Show edit tour screen
+     * 
+     * @return edit tour screen
+     */
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public ModelAndView showEditTourScreen(@PathVariable int id, Model model) {
+
+        // Check session login and role
+        String result = checkSessionAndRole();
+        if (!result.equals(Constants.Characters.BLANK)) {
+            return new ModelAndView(result);
+        }
+
+        String uri = API.URI_TOUR + "/" + id;
+        RestTemplate restTemplate = new RestTemplate();
+        // Set data to display.
+        ModelAndView mav = new ModelAndView(EDIT_TOUR_SCREEN);
+        try {
+            TourResponse<Tour> tourResponse = restTemplate
+                    .exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<TourResponse<Tour>>() {
+                    }).getBody();
+            mav.addObject("tourEdit", tourResponse.getData());
+            return mav;
+        } catch (HttpStatusCodeException exception) {
+            return new ModelAndView("admin/404");
+        }
+    }
+
+    /**
+     * Process edit tour
+     * 
+     * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public ModelAndView editTourProcess(@Valid @ModelAttribute("tourEdit") Tour tourEdit, @PathVariable int id,
+            @RequestParam("imagesEdit") MultipartFile imagesEdit, BindingResult bindingResult, HttpSession session,
+            RedirectAttributes redirectAttr) throws JsonParseException, JsonMappingException, IOException {
+
+        // Check session and role of user login
+        String result = checkSessionAndRole();
+
+        if (!result.equals(Constants.Characters.BLANK)) {
+            return new ModelAndView(result);
+        }
+
+        // Create view return
+        ModelAndView mav = new ModelAndView(EDIT_TOUR_SCREEN);
+
+        // Validate check form empty
+        // ValidateFormUtils.checkEmpty(tourAdd, bindingResult);
+        if (bindingResult.hasErrors()) {
+            mav.addObject("tourEdit", tourEdit);
+            return mav;
+        }
+
+        // Header using Content-Type: application/json
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Repare data (key, value) for form-data
+        MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
+        tourEdit.setImages(imagesEdit.getOriginalFilename());
+        parts.add("name", tourEdit.getName());
+        parts.add("number_days", tourEdit.getNumberDays());
+        parts.add("item_tour", tourEdit.getItemTour());
+        parts.add("discount", tourEdit.getDiscount());
+        parts.add("programs", tourEdit.getPrograms());
+        parts.add("note", tourEdit.getNote());
+        parts.add("id_type_tour", tourEdit.getTypeTour());
+        parts.add("images", tourEdit.getImages());
+        HttpEntity<MultiValueMap<String, Object>> requestTour = new HttpEntity<MultiValueMap<String, Object>>(parts,
+                headers);
+
+        // Repare images to add with API.UPLOAD_IMG
+        File file = new File("D:\\uploads\\", imagesEdit.getOriginalFilename());
+        imagesEdit.transferTo(file);
+        LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+        map.add("images", new FileSystemResource(file));
+        HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+                map, headers);
+
+        String uri = API.URI_TOUR + "/" + id;
+        try {
+//            TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG, HttpMethod.POST, requestImage,
+//                    new ParameterizedTypeReference<TourResponse<String>>() {
+//                    }).getBody();
+            TourResponse<String> tour = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(tourEdit, headers),
+                    new ParameterizedTypeReference<TourResponse<String>>() {
+                    }).getBody();
+            redirectAttr.addFlashAttribute("successMsg", tour.getResultMessage());
+            return new ModelAndView(REDIRECT_TOUR);
+        } catch (HttpStatusCodeException exception) {
+            // Convert json error msg -> hotelResponse
+            ObjectMapper mapper = new ObjectMapper();
+            String errorMessage = exception.getResponseBodyAsString();
+            TourResponse tour = mapper.readValue(errorMessage, TourResponse.class);
+            // If fail: return add hotel screen with notification
+            mav.addObject("failMsg", tour.getResultMessage());
+            mav.addObject("tourEdit", tourEdit);
+            return mav;
+        }
+    }
+
+    /**
+     * Show Add detail tour screen
+     * 
+     * @return add detail tour screen
+     */
+    @RequestMapping(value = "/detail/{id}/detailTourAdd", method = RequestMethod.GET)
+    public ModelAndView showAddDetailTourScreen(@PathVariable int id) {
+
+        // Check session login and role
+        String result = checkSessionAndRole();
+        if (!result.equals(Constants.Characters.BLANK)) {
+            return new ModelAndView(result);
+        }
+
+        // Set data to display.
+        // Get list guide from API
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<GuideResponse<DataGuideAPI>> response = restTemplate.exchange(API.URI_GUIDES, HttpMethod.GET,
+                null, new ParameterizedTypeReference<GuideResponse<DataGuideAPI>>() {
+                });
+        GuideResponse<DataGuideAPI> guides = response.getBody();
+        // Get list tour from API
+        ResponseEntity<TourResponse<DataTourAPI>> responseTour = restTemplate.exchange(API.URI_TOUR, HttpMethod.GET,
+                null, new ParameterizedTypeReference<TourResponse<DataTourAPI>>() {
+                });
+        TourResponse<DataTourAPI> tours = responseTour.getBody();
+        // Get list hotel from API
+        ResponseEntity<HotelResponse<DataHotelAPI>> responseHotel = restTemplate.exchange(API.URI_HOTELS,
+                HttpMethod.GET, null, new ParameterizedTypeReference<HotelResponse<DataHotelAPI>>() {
+                });
+        HotelResponse<DataHotelAPI> hotels = responseHotel.getBody();
+        // Set data to display.
+        ModelAndView mav = new ModelAndView(ADD_DETAIL_TOUR_SCREEN);
+        mav.addObject("detailTourAdd", new DetailTourRequest());
+        mav.addObject("guides", guides);
+        mav.addObject("tours", tours);
+        mav.addObject("hotels", hotels);
+        mav.addObject("id_tour", id);
+        return mav;
+    }
+
+    /**
+     * Process add detail tour
+     * 
+     * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @RequestMapping(value = "/detail/{id}/detailTourAdd", method = RequestMethod.POST)
+    public ModelAndView addDetailTourProcess(@Valid @ModelAttribute("detailTourAdd") DetailTourRequest detailTourAdd,
+            @PathVariable int id, BindingResult bindingResult, HttpSession session, RedirectAttributes redirectAttr)
+            throws JsonParseException, JsonMappingException, IOException {
+
+        // Check session and role of user login
+        String result = checkSessionAndRole();
+
+        if (!result.equals(Constants.Characters.BLANK)) {
+            return new ModelAndView(result);
+        }
+
+        // Create view return
+        ModelAndView mav = new ModelAndView(ADD_DETAIL_TOUR_SCREEN);
+
+        // Validate check form empty
+
+        // Check format phone
+
+        // Header using Content-Type: application/json
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Add detail tour using API
+        detailTourAdd.setId_tour(id);
+        try {
+            TourResponse<String> detailTour = restTemplate.exchange(API.URI_DETAIL_TOUR, HttpMethod.POST,
+                    new HttpEntity<DetailTourRequest>(detailTourAdd, headers),
+                    new ParameterizedTypeReference<TourResponse<String>>() {
+                    }).getBody();
+            redirectAttr.addFlashAttribute("successMsg", detailTour.getResultMessage());
+            return new ModelAndView(REDIRECT_DETAIL_TOUR);
+        } catch (HttpStatusCodeException exception) {
+            ObjectMapper mapper = new ObjectMapper();
+            String errorMessage = exception.getResponseBodyAsString();
+            TourResponse tour = mapper.readValue(errorMessage, TourResponse.class);
+            // If fail: return add guide screen with notification
+            mav.addObject("failMsg", tour.getResultMessage());
+            mav.addObject("detailTourAdd", detailTourAdd);
+            return mav;
+        }
+    }
+
 }
