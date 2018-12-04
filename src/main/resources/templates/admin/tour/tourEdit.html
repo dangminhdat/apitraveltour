@@ -29,7 +29,7 @@
 							<p th:text="${failMsg}" style="color: red;">></p>
 						</div>
 						<div class="form-body">
-							<form id="formEdit" method="POST" th:action="@{/admin/tour/edit/10}" th:object="${tourEdit}" enctype="multipart/form-data">
+							<form id="formEdit" method="POST" th:action="@{/admin/tour/edit/{id}(id=${tourEdit.id})}" th:object="${tourEdit}" enctype="multipart/form-data">
 								<div class="form-group">
 									<label for="usr">Tên tour</label>
 									<input name="name" type="text" class="form-control" th:value="${tourEdit.name}" />

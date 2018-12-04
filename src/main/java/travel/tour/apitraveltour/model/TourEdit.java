@@ -7,16 +7,14 @@
 */
 package travel.tour.apitraveltour.model;
 
-import java.util.Date;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Tour {
+public class TourEdit {
 
     @JsonProperty("id")
-    private int id;
+    private Integer id;
 
     @JsonProperty("name")
     private String name;
@@ -37,16 +35,16 @@ public class Tour {
     private String images;
 
     @JsonProperty("date_depart")
-    private String dateDepart;
+    private String date_depart;
 
     @JsonProperty("price_adults")
-    private Integer priceAdults;
+    private Integer price_adults;
 
     @JsonProperty("price_childs")
-    private Integer priceChilds;
+    private Integer price_childs;
 
     @JsonProperty("time_depart")
-    private String timeDepart;
+    private String time_depart;
 
     @JsonProperty("slot")
     private Integer slot;
@@ -60,39 +58,11 @@ public class Tour {
     @JsonProperty("note")
     private String note;
 
-    @JsonProperty("date_created")
-    private String dateCreated;
-    
-    @JsonProperty("deleted_at")
-    private int deletedAt;
-
-    @JsonProperty("id_guide")
-    private int id_guide;
-    
-    @JsonProperty("id_tour")
-    private int id_tour;
-
-    public int getId_guide() {
-        return id_guide;
-    }
-
-    public void setId_guide(int id_guide) {
-        this.id_guide = id_guide;
-    }
-
-    public int getId_tour() {
-        return id_tour;
-    }
-
-    public void setId_tour(int id_tour) {
-        this.id_tour = id_tour;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -145,35 +115,35 @@ public class Tour {
     }
 
     public String getDateDepart() {
-        return dateDepart;
+        return date_depart;
     }
 
     public void setDateDepart(String dateDepart) {
-        this.dateDepart = dateDepart;
+        this.date_depart = dateDepart;
     }
 
     public Integer getPriceAdults() {
-        return priceAdults;
+        return price_adults;
     }
 
     public void setPriceAdults(Integer priceAdults) {
-        this.priceAdults = priceAdults;
+        this.price_adults = priceAdults;
     }
 
     public Integer getPriceChilds() {
-        return priceChilds;
+        return price_childs;
     }
 
     public void setPriceChilds(Integer priceChilds) {
-        this.priceChilds = priceChilds;
+        this.price_childs = priceChilds;
     }
 
     public String getTimeDepart() {
-        return timeDepart;
+        return time_depart;
     }
 
     public void setTimeDepart(String timeDepart) {
-        this.timeDepart = timeDepart;
+        this.time_depart = timeDepart;
     }
 
     public Integer getSlot() {
@@ -206,22 +176,6 @@ public class Tour {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public int getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(int deletedAt) {
-        this.deletedAt = deletedAt;
     }
 
 }

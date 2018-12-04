@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DetailTourRequest {
 
+    @JsonProperty("id")
+    private int id;
+    
     @JsonProperty("date_depart")
     private String date_depart;
 
@@ -30,6 +33,12 @@ public class DetailTourRequest {
 
     @JsonProperty("id_hotel")
     private int id_hotel[];
+    
+    @JsonProperty("date_created")
+    private String dateCreated;
+    
+    @JsonProperty("deleted_at")
+    private int deletedAt;
 
     public String getDate_depart() {
         return date_depart;

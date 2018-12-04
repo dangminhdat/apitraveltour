@@ -60,7 +60,7 @@
 											<p th:each="hotel : ${tour.hotel}"
 												th:text="${hotel.name}">Message</p>
 										</td>
-										<td><a class="btn btn-success btn-sm"><span
+										<td><a class="btn btn-success btn-sm" th:href="@{/admin/tour/detail/{id_tour}/detailTourEdit/{id_detail_tour}(id_tour=${id_tour}, id_detail_tour=${tour.id})}"><span
 												class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
 												th:href="@{/admin/tour/detail/{id_tour}/delete/{id}(id=${tour.id},id_tour=${id_tour})}"
 											onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
