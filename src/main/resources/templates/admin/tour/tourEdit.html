@@ -85,44 +85,58 @@
 </script>
 <script type="text/javascript" >
     $(document).ready(function(){
-        $('#formAdd').validate({
+        $('#formEdit').validate({
             ignore: [],
             debug: false,
             rules: {
                 name: {
                     required: true,
                 },
-                address: {
+                numberDays: {
+                    required: true,
+                    number:true,
+                },
+                itemTour: {
                     required: true,
                 },
-                phone: {
+                discount: {
+                    required: true,
+                    number: true,
+                },
+                imagesEdit: {
                     required: true,
                 },
-                website: {
+                programs: {
                     required: true,
                 },
-                price_room: {
+                note: {
                     required: true,
-                    digits: true,
-                },
+                }
             },
             messages:{
                 name: {
-                    required: "Mời bạn nhập tên khách sạn",
+                    required: "Mời bạn nhập tên tour",
                 },
-                address: {
-                    required: "Mời bạn nhập địa chỉ khách sạn",
+                numberDays: {
+                    required: "Mời bạn nhập số ngày của tour",
+                    number: "Mời bạn nhập đúng số ngày"
                 },
-                phone: {
-                    required: "Mời bạn nhập số điện thoại khách sạn",
+                itemTour: {
+                    required: "Mời bạn nhập item tour",
                 },
-                website: {
-                    required: "Mời bạn nhập địa chỉ website của khách sạn",
+                discount: {
+                    required: "Mời bạn nhập giảm giá",
+                    number: "Mời bạn nhập đúng định dạng (là số dưới 100)"
                 },
-                price_room: {
-                    required: "Mời bạn nhập giá phòng",
-                    digits: "Vui lòng nhập đúng định dạng"
+                imagesEdit: {
+                    required: "Mời bạn nhập hình ảnh",
                 },
+                programs: {
+                    required: "Mời bạn nhập thông tin chương trình"
+                },
+                note: {
+                    required: "Mời bạn nhập ghi chú cho trương trình",
+                }
             }
         });                 
     });

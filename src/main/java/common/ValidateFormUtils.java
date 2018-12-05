@@ -160,6 +160,47 @@ public class ValidateFormUtils {
     }
 
     /**
+     * Validate discount
+     * 
+     * @param bingdingResult
+     */
+    public static void validateDiscount(int discount, BindingResult bindingResult) {
+        if (discount >= 0 && discount <= 99) {
+            return;
+        } else {
+            bindingResult.rejectValue("discount", "discountWrong", null, null);
+            return;
+        }
+    }
+
+    /**
+     * Validate number date of edit tour
+     * 
+     * @param bingdingResult
+     */
+    public static void validateDateEditTour(int numberDate, BindingResult bindingResult) {
+        if (numberDate > 0 && numberDate <= 99) {
+            return;
+        } else {
+            bindingResult.rejectValue("numberDays", "numberDateWrong", null, null);
+            return;
+        }
+    }
+    /**
+     * Validate number date
+     * 
+     * @param bingdingResult
+     */
+    public static void validateNumberDate(int numberDate, BindingResult bindingResult) {
+        if (numberDate > 0 && numberDate <= 99) {
+            return;
+        } else {
+            bindingResult.rejectValue("number_days", "numberDateWrong", null, null);
+            return;
+        }
+    }
+
+    /**
      * Validate format phone number
      * 
      * @param bingdingResult

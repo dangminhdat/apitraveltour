@@ -184,7 +184,9 @@ public class TourController extends AbstractUserController {
         ModelAndView mav = new ModelAndView(ADD_TOUR_SCREEN);
 
         // Validate check form empty
-        // ValidateFormUtils.checkEmpty(tourAdd, bindingResult);
+        ValidateFormUtils.checkEmpty(tourAdd, bindingResult);
+        ValidateFormUtils.validateDiscount(tourAdd.getDiscount(), bindingResult);
+        ValidateFormUtils.validateNumberDate(tourAdd.getNumber_days(), bindingResult);
         if (bindingResult.hasErrors()) {
             mav.addObject("tourAdd", tourAdd);
             return mav;
@@ -457,7 +459,9 @@ public class TourController extends AbstractUserController {
         ModelAndView mav = new ModelAndView(EDIT_TOUR_SCREEN);
 
         // Validate check form empty
-        // ValidateFormUtils.checkEmpty(tourAdd, bindingResult);
+        ValidateFormUtils.validateDiscount(tourEdit.getDiscount(), bindingResult);
+        ValidateFormUtils.validateDateEditTour(tourEdit.getNumberDays(), bindingResult);
+
         if (bindingResult.hasErrors()) {
             mav.addObject("tourEdit", tourEdit);
             return mav;

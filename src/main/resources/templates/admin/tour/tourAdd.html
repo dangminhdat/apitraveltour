@@ -52,7 +52,7 @@
 								</div>
 								<div class="form-group">
 									<label>Hinh anh:</label>
-									<input name="imagesAdd" type="file" class="form-control" id="imagesAdd" value="" onChange="GetDiretory()"/>
+									<input name="imagesAdd" type="file" class="form-control" id="imagesAdd" value=""/>
 									<!-- <p th:each="err : ${#fields.errors('images')}" th:text="${err}" style="color: red;">Incorrect date</p> -->
                                     <input type="hidden" id="Directory" name="Directory" value="" />
 								</div>
@@ -78,21 +78,7 @@
 					</div>
 				</div>
 			</div>
-<script type="text/javascript">
-$(document).ready(function(){
-	function GetDirectory() {
-        var strFile = document.getElementById("imagesAdd").value;
-        alert(strFile);
-        var intPos = strFile.lastIndexOf("\");
-        var strDirectory = strFile.substring(0, intPos);
-        alert(strDirectory);
-        document.getElementById("Directory").innerHTML = strDirectory;
-        document.getElementById("Directory").value = strDirectory;
-    }
-	$("#imagesAdd").on("change", GetDirectory);
-});
-    
-</script>
+
 <script type="text/javascript">
   var editor = CKEDITOR.replace( 'ckeditor' );
     CKFinder.setupCKEditor( editor, '/ckfinder/' );
@@ -106,37 +92,51 @@ $(document).ready(function(){
                 name: {
                     required: true,
                 },
-                address: {
+                number_days: {
+                    required: true,
+                    number:true,
+                },
+                item_tour: {
                     required: true,
                 },
-                phone: {
+                discount: {
+                    required: true,
+                    number: true,
+                },
+                imagesAdd: {
                     required: true,
                 },
-                website: {
-                    required: true,
+                programs: {
+                	required: true,
                 },
-                price_room: {
+                note: {
                     required: true,
-                    digits: true,
-                },
+                }
             },
             messages:{
                 name: {
-                    required: "Mời bạn nhập tên khách sạn",
+                    required: "Mời bạn nhập tên tour",
                 },
-                address: {
-                    required: "Mời bạn nhập địa chỉ khách sạn",
+                number_days: {
+                    required: "Mời bạn nhập số ngày của tour",
+                    number: "Mời bạn nhập đúng số ngày"
                 },
-                phone: {
-                    required: "Mời bạn nhập số điện thoại khách sạn",
+                item_tour: {
+                    required: "Mời bạn nhập item tour",
                 },
-                website: {
-                    required: "Mời bạn nhập địa chỉ website của khách sạn",
+                discount: {
+                    required: "Mời bạn nhập giảm giá",
+                    number: "Mời bạn nhập đúng định dạng (là số dưới 100)"
                 },
-                price_room: {
-                    required: "Mời bạn nhập giá phòng",
-                    digits: "Vui lòng nhập đúng định dạng"
+                imagesAdd: {
+                    required: "Mời bạn nhập hình ảnh",
                 },
+                programs: {
+                	required: "Mời bạn nhập thông tin chương trình"
+                },
+                note: {
+                    required: "Mời bạn nhập ghi chú cho trương trình",
+                }
             }
         });                 
     });
