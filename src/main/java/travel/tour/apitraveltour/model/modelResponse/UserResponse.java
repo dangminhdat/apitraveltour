@@ -1,35 +1,39 @@
 package travel.tour.apitraveltour.model.modelResponse;
 
-import travel.tour.apitraveltour.model.DataUserAPI;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserResponse {
+public class UserResponse<T> {
 
-    private Integer resultCode;
-    private String resultMessage;
-    private DataUserAPI data;
+    @JsonProperty("result_code")
+    private int result_code;
+    
+    @JsonProperty("result_message")
+    private String result_message;
+    
+    @JsonProperty("data")
+    private T data;
 
-    public Integer getResultCode() {
-        return resultCode;
+    public int getResultCode() {
+        return result_code;
     }
 
-    public void setResultCode(Integer resultCode) {
-        this.resultCode = resultCode;
+    public void setResultCode(int resultCode) {
+        this.result_code = resultCode;
     }
 
     public String getResultMessage() {
-        return resultMessage;
+        return result_message;
     }
 
     public void setResultMessage(String resultMessage) {
-        this.resultMessage = resultMessage;
+        this.result_message = resultMessage;
     }
 
-    public DataUserAPI getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(DataUserAPI data) {
+    public void setData(T data) {
         this.data = data;
     }
-
 }

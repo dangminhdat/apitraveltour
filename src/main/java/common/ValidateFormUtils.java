@@ -7,6 +7,9 @@ import org.springframework.validation.BindingResult;
 
 import travel.tour.apitraveltour.model.Guide;
 import travel.tour.apitraveltour.model.Hotel;
+import travel.tour.apitraveltour.model.Tour;
+import travel.tour.apitraveltour.model.TourAdd;
+import travel.tour.apitraveltour.model.User;
 
 public class ValidateFormUtils {
 
@@ -15,6 +18,11 @@ public class ValidateFormUtils {
     // =====================================================================
     public static final Pattern WEBSITE_PATTERN = Pattern
             .compile("^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$");
+
+    // Email Regex java
+    private static final String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+
+    public static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
 
     // =====================================================================
     // Public method
@@ -45,10 +53,49 @@ public class ValidateFormUtils {
         if (hotel.getWebsite().isEmpty()) {
             bindingResult.rejectValue("website", "websiteHotelEmpty", null, null);
         }
-        
+
         // Check phone hotel
         if (hotel.getPrice_room() == 0) {
             bindingResult.rejectValue("price_room", "priceRoomWrong", null, null);
+        }
+
+        return;
+    }
+
+    /**
+     * Validate form add empty
+     * 
+     * @param bingdingResult
+     * @param User
+     */
+    public static void checkEmpty(User user, BindingResult bindingResult) {
+        // Check name hotel
+        if (user.getUsername().isEmpty()) {
+            bindingResult.rejectValue("username", "usernameEmpty", null, null);
+        }
+
+        if (user.getPassword().isEmpty()) {
+            bindingResult.rejectValue("password", "passwordEmpty", null, null);
+        }
+
+        // Check address hotel
+        if (user.getAddress().isEmpty()) {
+            bindingResult.rejectValue("address", "addressUserEmpty", null, null);
+        }
+
+        // Check phone hotel
+        if (user.getPhone().isEmpty()) {
+            bindingResult.rejectValue("phone", "phoneUserEmpty", null, null);
+        }
+
+        // Check email hotel
+        if (user.getEmail().isEmpty()) {
+            bindingResult.rejectValue("email", "emailUserEmpty", null, null);
+        }
+
+        // Check phone hotel
+        if (user.getFullname().isEmpty()) {
+            bindingResult.rejectValue("fullname", "fullnameUserEmpty", null, null);
         }
 
         return;
@@ -77,6 +124,80 @@ public class ValidateFormUtils {
         }
 
         return;
+    }
+
+    /**
+     * Validate form add empty
+     * 
+     * @param bingdingResult
+     * @param tour
+     */
+    public static void checkEmpty(TourAdd tour, BindingResult bindingResult) {
+        // Check name tour
+        if (tour.getName().isEmpty()) {
+            bindingResult.rejectValue("name", "nameTourEmpty", null, null);
+        }
+
+        // Check number days
+        if (tour.getNumber_days() == 0) {
+            bindingResult.rejectValue("number_days", "numberDaysWrong", null, null);
+        }
+        // Check item tour
+        if (tour.getItem_tour().isEmpty()) {
+            bindingResult.rejectValue("item_tour", "itemTourEmpty", null, null);
+        }
+
+        // Check programs of tour
+        if (tour.getPrograms().isEmpty()) {
+            bindingResult.rejectValue("programs", "programsTourEmpty", null, null);
+        }
+
+        if (tour.getNote().isEmpty()) {
+            bindingResult.rejectValue("note", "noteTourEmpty", null, null);
+        }
+
+        return;
+    }
+
+    /**
+     * Validate discount
+     * 
+     * @param bingdingResult
+     */
+    public static void validateDiscount(int discount, BindingResult bindingResult) {
+        if (discount >= 0 && discount <= 99) {
+            return;
+        } else {
+            bindingResult.rejectValue("discount", "discountWrong", null, null);
+            return;
+        }
+    }
+
+    /**
+     * Validate number date of edit tour
+     * 
+     * @param bingdingResult
+     */
+    public static void validateDateEditTour(int numberDate, BindingResult bindingResult) {
+        if (numberDate > 0 && numberDate <= 99) {
+            return;
+        } else {
+            bindingResult.rejectValue("numberDays", "numberDateWrong", null, null);
+            return;
+        }
+    }
+    /**
+     * Validate number date
+     * 
+     * @param bingdingResult
+     */
+    public static void validateNumberDate(int numberDate, BindingResult bindingResult) {
+        if (numberDate > 0 && numberDate <= 99) {
+            return;
+        } else {
+            bindingResult.rejectValue("number_days", "numberDateWrong", null, null);
+            return;
+        }
     }
 
     /**
@@ -128,5 +249,19 @@ public class ValidateFormUtils {
             bindingResult.rejectValue("price_room", "priceRoomWrong", null, null);
             return;
         }
+    }
+
+    /**
+     * Validate format email
+     * 
+     * @param bingdingResult
+     */
+    public static void checkFormatEmail(String email, BindingResult bindingResult) {
+        Matcher matcher;
+        matcher = EMAIL_PATTERN.matcher(email);
+        if (!matcher.matches()) {
+            bindingResult.rejectValue("email", "emailWrong", null, null);
+        }
+        return;
     }
 }

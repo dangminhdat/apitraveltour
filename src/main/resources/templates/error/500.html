@@ -1,12 +1,24 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="admin/fragments/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<header>
+	<title>Loi500</title>
+	<style>
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+</style>
+</header>
 <body>
-	<div layout:fragment="content" th:remove="tag">
-		<div class="inner_content">
-			500 page
-		</div>
+	<div>
+		<img th:src="@{/admin/images/loi-500.jpg}" alt="" class="center" />
+		<p style="text-align: center">
+			<a href="/admin/top-page">Trở về</a>
+		</p>
 	</div>
 </body>
 </html>

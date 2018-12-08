@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/tour}">Quản lý Tour</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Sua Tour</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Form</h3>
+						<div class="form-group">
+							<p th:text="${failMsg}" style="color: red;">></p>
+						</div>
+						<div class="form-body">
+							<form id="formEdit" method="POST" th:action="@{/admin/tour/edit/{id}(id=${tourEdit.id})}" th:object="${tourEdit}" enctype="multipart/form-data">
+								<div class="form-group">
+									<label for="usr">Tên tour</label>
+									<input name="name" type="text" class="form-control" th:value="${tourEdit.name}" />
+									<p th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label for="usr">So ngay</label>
+									<input name="numberDays" type="number" class="form-control" th:value="${tourEdit.numberDays}" />
+									<p th:each="err : ${#fields.errors('numberDays')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Item tour</label>
+									<input name="itemTour" type="text" class="form-control" th:value="${tourEdit.itemTour}" />
+									<p th:each="err : ${#fields.errors('itemTour')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Giam gia:</label>
+									<input name="discount" type="number" class="form-control" th:value="${tourEdit.discount}" />
+									<p th:each="err : ${#fields.errors('discount')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Hinh anh:</label>
+									<input name="imagesEdit" type="file" class="form-control" id="imagesEdit" value=""/>
+									<!-- <p th:each="err : ${#fields.errors('images')}" th:text="${err}" style="color: red;">Incorrect date</p> -->
+                                    <input type="hidden" id="Directory" name="Directory" value="" />
+								</div>
+								<div class="form-group">
+									<label>Programs:</label>
+									<textarea id="ckeditor" class="form-control" rows="5" name="programs" th:value="${tourEdit.programs}"></textarea>
+									<p th:each="err : ${#fields.errors('programs')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Note:</label>
+									<textarea id="ckeditor" class="form-control" rows="5" name="note" th:value="${tourEdit.note}"></textarea>
+									<p th:each="err : ${#fields.errors('note')}" th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Loai tour</label> <select th:field="*{typeTour}">
+										<option th:value="1">Tour trong nuoc</option>
+										<option th:value="2">Tour ngoai nuoc</option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+<script type="text/javascript">
+  var editor = CKEDITOR.replace( 'ckeditor' );
+    CKFinder.setupCKEditor( editor, '/ckfinder/' );
+</script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $('#formEdit').validate({
+            ignore: [],
+            debug: false,
+            rules: {
+                name: {
+                    required: true,
+                },
+                numberDays: {
+                    required: true,
+                    number:true,
+                },
+                itemTour: {
+                    required: true,
+                },
+                discount: {
+                    required: true,
+                    number: true,
+                },
+                imagesEdit: {
+                    required: true,
+                },
+                programs: {
+                    required: true,
+                },
+                note: {
+                    required: true,
+                }
+            },
+            messages:{
+                name: {
+                    required: "Mời bạn nhập tên tour",
+                },
+                numberDays: {
+                    required: "Mời bạn nhập số ngày của tour",
+                    number: "Mời bạn nhập đúng số ngày"
+                },
+                itemTour: {
+                    required: "Mời bạn nhập item tour",
+                },
+                discount: {
+                    required: "Mời bạn nhập giảm giá",
+                    number: "Mời bạn nhập đúng định dạng (là số dưới 100)"
+                },
+                imagesEdit: {
+                    required: "Mời bạn nhập hình ảnh",
+                },
+                programs: {
+                    required: "Mời bạn nhập thông tin chương trình"
+                },
+                note: {
+                    required: "Mời bạn nhập ghi chú cho trương trình",
+                }
+            }
+        });                 
+    });
+</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>
