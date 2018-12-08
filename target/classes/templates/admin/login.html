@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<title>Esteem An Admin Panel Category Flat Bootstrap Responsive
-	Website Template | Sign In:: w3layouts</title>
+<title>Quản lý tour - Đăng nhập</title>
 <!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,20 +10,8 @@
 	content="Esteem Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
-	
-	
-	
-	
-	
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+	addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-
-
-
-
 </script>
 <!-- //custom-theme -->
 <link th:href="@{/admin/css/bootstrap.css}" rel="stylesheet"
@@ -53,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="registration">
 
 				<div class="signin-form profile">
-					<h2>Sign in Form</h2>
+					<h2>ĐĂNG NHẬP</h2>
 					<div class="login-form">
 						<form method="POST" th:action="@{/operator-login}"
 							th:object="${userLogin}">
@@ -63,9 +50,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</ul>
 							<input type="text" th:field="*{username}" placeholder="Username" />
 							<input type="password" th:field="*{password}"
-								placeholder="Password" />
+								placeholder="Mật khẩu" />
 							<div class="tp">
-								<input type="submit" value="SIGN IN" />
+								<input type="submit" value="ĐĂNG NHẬP" />
 							</div>
 						</form>
 					</div>
@@ -76,20 +63,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="#"><i class="fa fa-rss"></i></a></li>
 						</ul>
 					</div>
-					<p>
-						<a href="#"> Don't have an account?</a>
-					</p>
-
-					<h6>
-						<a href="#">Back To Home</a>
-					</h6>
 				</div>
 			</div>
 			<!--copy rights start here-->
 			<div class="copyrights_agile">
 				<p>
-					© 2017 Esteem. All Rights Reserved | Design by <a
-						href="http://w3layouts.com/" target="_blank">W3layouts</a>
+					© 2018 ĐỒ ÁN CNPM | Design by <a
+						href="http://w3layouts.com/" target="_blank">LTD</a>
 				</p>
 			</div>
 			<!--copy rights end here-->

@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+						<li><a href="/admin/top-page">Trang chủ</a><span>«</span></li>
 
 						<li>Quản lý review</li>
 					</ul>
@@ -20,12 +20,11 @@
 			<!-- //breadcrumbs -->
 
 			<div class="inner_content_w3_agile_info two_in">
-				<h2 class="w3_inner_tittle">Tables</h2>
+				<h2 class="w3_inner_tittle">Quản lý review</h2>
 				<!-- tables -->
 
 				<div class="agile-tables">
 					<div class="w3l-table-info agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Quản lý review</h3>
 						<p th:text="${successMsg}" style="color: blue;">></p>
 						<table id="table" class="table table-striped">
 							<thead>
@@ -40,8 +39,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="review : ${reviews.data.list}">
-									<td th:text="${review.id}">1</td>
+								<tr th:each="review, index: ${reviews.data.list}">
+									<td th:text="${index.index + 1}">1</td>
 									<td th:text="${review.name}">Name</td>
 									<td th:text="${review.email}">Email</td>
 									<td th:text="${review.score}">Điểm đánh giá</td>

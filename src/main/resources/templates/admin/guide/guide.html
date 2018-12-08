@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						<li><a th:href="@{/admin/top-page}">Trang chủ</a><span>«</span></li>
 
 						<li>Quản lý Hướng dẫn viên</li>
 					</ul>
@@ -20,12 +20,11 @@
 			<!-- //breadcrumbs -->
 
 			<div class="inner_content_w3_agile_info two_in">
-				<h2 class="w3_inner_tittle">Tables</h2>
+				<h2 class="w3_inner_tittle">Quản lý hướng dẫn viên</h2>
 				<!-- tables -->
 
 				<div class="agile-tables">
 					<div class="w3l-table-info agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Quản lý hướng dẫn viên</h3>
 						<a th:href="@{/admin/guide/add}" class="btn btn-success btn-sm"><span
 							class="glyphicon glyphicon-plus"></span> Thêm hướng dẫn viên </a>
 
@@ -41,8 +40,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="guide : ${guides.data.list}">
-									<td th:text="${guide.id}">1</td>
+								<tr th:each="guide, index : ${guides.data.list}">
+									<td th:text="${index.index + 1}">1</td>
 									<td th:text="${guide.name}">Name</td>
 									<td th:text="${guide.address}">Address</td>
 									<td th:text="${guide.phone}">Phone</td>

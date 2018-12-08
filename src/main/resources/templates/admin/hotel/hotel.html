@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+						<li><a href="/admin/top-page">Trang chủ</a><span>«</span></li>
 
 						<li>Quản lý Hotel</li>
 					</ul>
@@ -20,12 +20,11 @@
 			<!-- //breadcrumbs -->
 
 			<div class="inner_content_w3_agile_info two_in">
-				<h2 class="w3_inner_tittle">Tables</h2>
+				<h2 class="w3_inner_tittle">Quản lý Hotel</h2>
 				<!-- tables -->
 
 				<div class="agile-tables">
 					<div class="w3l-table-info agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Quản lý Hotel</h3>
 						<a href="/admin/hotel/add" class="btn btn-success btn-sm"><span
 							class="glyphicon glyphicon-plus"></span> Thêm khách sạn </a>
 
@@ -42,8 +41,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="hotel : ${hotels.data.list}">
-									<td th:text="${hotel.id}">1</td>
+								<tr th:each="hotel, index : ${hotels.data.list}">
+									<td th:text="${index.index + 1}">1</td>
 									<td th:text="${hotel.name}">Name</td>
 									<td th:text="${hotel.address}">Address</td>
 									<td th:text="${hotel.phone}">Phone</td>
