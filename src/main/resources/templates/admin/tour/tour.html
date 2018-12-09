@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+						<li><a href="/admin/top-page">Trang chủ</a><span>«</span></li>
 
 						<li>Quản lý Tour</li>
 					</ul>
@@ -20,12 +20,11 @@
 			<!-- //breadcrumbs -->
 
 			<div class="inner_content_w3_agile_info two_in">
-				<h2 class="w3_inner_tittle">Tables</h2>
+				<h2 class="w3_inner_tittle">Quản lý Tour</h2>
 				<!-- tables -->
 
 				<div class="agile-tables">
 					<div class="w3l-table-info agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Quản lý Tour</h3>
 						<a href="/admin/tour/add" class="btn btn-success btn-sm"><span
 							class="glyphicon glyphicon-plus"></span> Thêm tour </a>
 
@@ -33,7 +32,7 @@
 						<table id="table" class="table table-striped">
 							<thead>
 								<tr>
-									<th>Mã tour</th>
+									<th>ID</th>
 									<th>Tên tour</th>
 									<th>Số ngày</th>
 									<th>Giảm giá</th>
@@ -44,8 +43,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="tour : ${tours.data.list}">
-									<td th:text="${tour.id}">1</td>
+								<tr th:each="tour, index : ${tours.data.list}">
+									<td th:text="${index.index + 1}">1</td>
 									<td th:text="${tour.name}">Name</td>
 									<td th:text="${tour.numberDays}">Số ngày</td>
 									<td th:text="${tour.discount}">Giảm giá</td>

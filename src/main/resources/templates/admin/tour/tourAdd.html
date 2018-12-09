@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						<li><a th:href="@{/admin/top-page}">Trang chủ</a><span>«</span></li>
 
 						<li><a th:href="@{/admin/tour}">Quản lý Tour</a></li>
 					</ul>
@@ -24,7 +24,6 @@
 
 				<div class="agile-tables">
 					<div class="graph-form agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Form</h3>
 						<div class="form-group">
 							<p th:text="${failMsg}" style="color: red;">></p>
 						</div>
@@ -36,7 +35,7 @@
 									<p th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label for="usr">So ngay</label>
+									<label for="usr">Số ngày</label>
 									<input name="number_days" type="number" class="form-control" th:value="${tourAdd.number_days}" />
 									<p th:each="err : ${#fields.errors('number_days')}" th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
@@ -46,33 +45,35 @@
 									<p th:each="err : ${#fields.errors('item_tour')}" th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Giam gia:</label>
+									<label>Giảm giá:</label>
 									<input name="discount" type="number" class="form-control" th:value="${tourAdd.discount}" />
 									<p th:each="err : ${#fields.errors('discount')}" th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Hinh anh:</label>
+									<label>Hình ảnh:</label>
 									<input name="imagesAdd" type="file" class="form-control" id="imagesAdd" value=""/>
 									<!-- <p th:each="err : ${#fields.errors('images')}" th:text="${err}" style="color: red;">Incorrect date</p> -->
                                     <input type="hidden" id="Directory" name="Directory" value="" />
 								</div>
 								<div class="form-group">
-									<label>Programs:</label>
+									<label>Chương trình:</label>
 									<textarea id="ckeditor" class="form-control" rows="5" name="programs" th:value="${tourAdd.programs}"></textarea>
 									<p th:each="err : ${#fields.errors('programs')}" th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Note:</label>
+									<label>Lưu ý:</label>
 									<textarea id="ckeditor" class="form-control" rows="5" name="note" th:value="${tourAdd.note}"></textarea>
 									<p th:each="err : ${#fields.errors('note')}" th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Loai tour</label> <select th:field="*{id_type_tour}">
+									<label style="width: 8%">Loai tour</label> 
+									<select th:field="*{id_type_tour}">
 										<option th:value="1">Tour trong nuoc</option>
 										<option th:value="2">Tour ngoai nuoc</option>
 									</select>
 								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
+								<button type="submit" class="btn btn-default">Thêm</button>
+								<a th:href="@{/admin/tour}" class="btn btn-danger" style="padding: 7px; width: 9em;">Trở lại</a>
 							</form>
 						</div>
 					</div>
