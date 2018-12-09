@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						<li><a th:href="@{/admin/top-page}">Trang chủ</a><span>«</span></li>
 						
 						<li><a th:href="@{/admin/guide}">Quản lý hướng dẫn viên</a></li>
 					</ul>
@@ -24,7 +24,6 @@
 
 				<div class="agile-tables">
 					<div class="graph-form agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Form</h3>
 						<div class="form-group">
 						  <p th:text="${failMsg}" style="color:red;">></p>
 						</div>
@@ -40,10 +39,11 @@
 									<p  th:each="err : ${#fields.errors('address')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Phone:</label> <input name="phone" type="text" class="form-control" th:value="${guideAdd.phone}"/>
+									<label>Số điện thoại:</label> <input name="phone" type="text" class="form-control" th:value="${guideAdd.phone}"/>
 									<p  th:each="err : ${#fields.errors('phone')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
+								<button type="submit" class="btn btn-default">Thêm</button>
+								<a th:href="@{/admin/guide}" class="btn btn-danger" style="padding: 7px; width: 9em;">Trở lại</a>
 							</form>
 						</div>
 					</div>

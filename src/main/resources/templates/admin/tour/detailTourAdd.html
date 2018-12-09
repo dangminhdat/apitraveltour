@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						<li><a th:href="@{/admin/top-page}">Trang chủ</a><span>«</span></li>
 
 						<li><a th:href="@{/admin/tour}">Quản lý Tour</a></li>
 					</ul>
@@ -24,7 +24,6 @@
 
 				<div class="agile-tables">
 					<div class="graph-form agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Form</h3>
 						<div class="form-group">
 							<p th:text="${failMsg}" style="color: red;">></p>
 						</div>
@@ -54,27 +53,27 @@
 										th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Gio khoi hanh</label> <input name="time_depart"
+									<label>Giờ khởi hành</label> <input name="time_depart"
 										type="time" class="form-control"
 										th:value="${detailTourAdd.time_depart}" />
 									<p th:each="err : ${#fields.errors('time_depart')}"
 										th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Dia diem khoi hanh</label> <input name="address_depart"
+									<label>Địa điểm khởi hành</label> <input name="address_depart"
 										type="text" class="form-control"
 										th:value="${detailTourAdd.address_depart}" />
 									<p th:each="err : ${#fields.errors('address_depart')}"
 										th:text="${err}" style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Cho trong</label> <input name="slot" type="number"
+									<label>Số lượng</label> <input name="slot" type="number"
 										class="form-control" th:value="${detailTourAdd.slot}" />
 									<p th:each="err : ${#fields.errors('slot')}" th:text="${err}"
 										style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Huong dan vien</label> <select th:field="*{id_guide}">
+									<label style="width: 10%">Hướng dẫn viên</label> <select th:field="*{id_guide}">
 										<option th:each="guide : ${guides.data.list}"
 											th:value="${guide.id}" th:text="${guide.name}">Wireframe</option>
 									</select>
@@ -86,14 +85,15 @@
 									</select>
 								</div> -->
 								<div class="form-group">
-									<label>Khach san</label>
-									<ul>
-										<li th:each="hotel : ${hotels.data.list}"><input
+									<label>Khách sạn:</label>
+									<ul class="list-group">
+										<li class="list-group-item" th:each="hotel : ${hotels.data.list}"><input
 											type="checkbox" th:field="*{id_hotel}" th:value="${hotel.id}" />
 											<label th:text="${hotel.name}">Heating</label></li>
 									</ul>
 								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
+								<button type="submit" class="btn btn-default">Thêm</button>
+								<a th:href="@{/admin/tour/detail/{id}(id=${id_tour})}" class="btn btn-danger" style="padding: 7px; width: 9em;">Trở lại</a>
 							</form>
 						</div>
 					</div>
