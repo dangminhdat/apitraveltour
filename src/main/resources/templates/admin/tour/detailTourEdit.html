@@ -30,7 +30,7 @@
 						</div>
 						<div class="form-body">
 							<form id="formAdd" method="POST"
-								th:action="@{/admin/tour/detail/{id}/detailTourEdit(id=${id_tour})}"
+								th:action="@{/admin/tour/detail/{id}/detailTourEdit/{id_detail_tour}(id=${id_tour}, id_detail_tour=${detailTourEdit.id})}"
 								th:object="${detailTourEdit}">
 								<div class="form-group">
 									<label for="usr">Ngày khởi hành</label> <input
@@ -74,7 +74,7 @@
 										style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Huong dan vien</label> <select th:field="*{id_guide}">
+									<label>Huong dan vien</label> <select th:field="*{idGuide}">
 										<option th:each="guide : ${guides.data.list}"
 											th:value="${guide.id}" th:text="${guide.name}">Wireframe</option>
 									</select>
@@ -89,7 +89,7 @@
 									<label>Khach san</label>
 									<ul>
 										<li th:each="hotel : ${hotels.data.list}"><input
-											type="checkbox" th:field="*{id_hotel}" th:value="${hotel.id}" />
+											type="checkbox" th:field="*{idHotel}" th:value="${hotel.id}" />
 											<label th:text="${hotel.name}">Heating</label></li>
 									</ul>
 								</div>
