@@ -7,6 +7,8 @@
 */
 package travel.tour.apitraveltour.controller.viewController;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -28,13 +30,18 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import common.Constants;
+import common.Constants.SessionKey;
 import common.Constants.Url;
 import common.URI.API;
 import common.ValidateFormUtils;
+import travel.tour.apitraveltour.model.DataHotelAPI;
 import travel.tour.apitraveltour.model.Hotel;
 import travel.tour.apitraveltour.model.modelResponse.HotelResponse;
-import travel.tour.apitraveltour.model.modelResponse.HotelsResponse;
 
 @Controller
 @RequestMapping(Url.HANDLER_HOTEL)
@@ -98,10 +105,10 @@ public class HotelController extends AbstractUserController {
 
         // Get data from API
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<HotelsResponse> response = restTemplate.exchange(API.URI_HOTELS, HttpMethod.GET, null,
-                new ParameterizedTypeReference<HotelsResponse>() {
+        ResponseEntity<HotelResponse<DataHotelAPI>> response = restTemplate.exchange(API.URI_HOTELS, HttpMethod.GET,
+                null, new ParameterizedTypeReference<HotelResponse<DataHotelAPI>>() {
                 });
-        HotelsResponse hotels = response.getBody();
+        HotelResponse<DataHotelAPI> hotels = response.getBody();
         // Set data to display.
         ModelAndView mav = new ModelAndView(HANDLE_HOTEL_SCREEN);
         mav.addObject("hotels", hotels);
@@ -133,10 +140,14 @@ public class HotelController extends AbstractUserController {
      * Process add hotel
      * 
      * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addHotelProcess(@Valid @ModelAttribute("hotelAdd") Hotel hotelAdd, BindingResult bindingResult,
-            HttpSession session, RedirectAttributes redirectAttr) {
+            HttpSession session, RedirectAttributes redirectAttr)
+            throws JsonParseException, JsonMappingException, IOException {
 
         // Check session and role of user login
         String result = checkSessionAndRole();
@@ -150,6 +161,10 @@ public class HotelController extends AbstractUserController {
 
         // Validate check form empty
         ValidateFormUtils.checkEmpty(hotelAdd, bindingResult);
+        if (bindingResult.hasErrors()) {
+            mav.addObject("hotelAdd", hotelAdd);
+            return mav;
+        }
 
         // Check format phone
         ValidateFormUtils.validatePhoneNumber(hotelAdd.getPhone(), bindingResult);
@@ -158,25 +173,33 @@ public class HotelController extends AbstractUserController {
         ValidateFormUtils.checkFormatWebsite(hotelAdd.getWebsite(), bindingResult);
 
         if (bindingResult.hasErrors()) {
+            mav.addObject("hotelAdd", hotelAdd);
             return mav;
         }
 
         // Header using Content-Type: application/json
         HttpHeaders headers = new HttpHeaders();
         headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
         headers.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
 
         // App hotel using API
         try {
-            Hotel hotel = restTemplate.postForObject(API.URI_HOTELS, new HttpEntity<Hotel>(hotelAdd, headers),
-                    Hotel.class);
-            redirectAttr.addFlashAttribute("successMsg", ADD_HOTEL_SUCCESS_MSG);
+            HotelResponse<String> hotel = restTemplate.exchange(API.URI_HOTELS, HttpMethod.POST,
+                    new HttpEntity<Hotel>(hotelAdd, headers), new ParameterizedTypeReference<HotelResponse<String>>() {
+                    }).getBody();
+            redirectAttr.addFlashAttribute("successMsg", hotel.getResultMessage());
             return new ModelAndView(REDIRECT_HOTEL);
         } catch (HttpStatusCodeException exception) {
+            // Convert json error msg -> hotelResponse
+            ObjectMapper mapper = new ObjectMapper();
+            String errorMessage = exception.getResponseBodyAsString();
+            HotelResponse hotel = mapper.readValue(errorMessage, HotelResponse.class);
             // If fail: return add hotel screen with notification
-            redirectAttr.addFlashAttribute("failMsg", ADD_HOTEL_FAIL_MSG);
-            return new ModelAndView(REDIRECT_HOTEL_ADD);
+            mav.addObject("failMsg", hotel.getResultMessage());
+            mav.addObject("hotelAdd", hotelAdd);
+            return mav;
         }
     }
 
@@ -199,10 +222,10 @@ public class HotelController extends AbstractUserController {
         // Set data to display.
         ModelAndView mav = new ModelAndView(EDIT_HOTEL_SCREEN);
         try {
-            HotelResponse hotel = restTemplate.getForObject(uri, HotelResponse.class);
-            model.addAttribute("hotel", hotel.getData());
-            mav.addObject("hotelEdit", new Hotel());
-
+            HotelResponse<Hotel> hotelResponse = restTemplate
+                    .exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<HotelResponse<Hotel>>() {
+                    }).getBody();
+            mav.addObject("hotelEdit", hotelResponse.getData());
             return mav;
         } catch (HttpStatusCodeException exception) {
             return new ModelAndView("admin/404");
@@ -213,11 +236,14 @@ public class HotelController extends AbstractUserController {
      * Process edit hotel
      * 
      * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
      */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editHotelProcess(@Valid @ModelAttribute("hotelEdit") Hotel hotelEdit,
             BindingResult bindingResult, @PathVariable int id, HttpSession session, RedirectAttributes redirectAttr,
-            Model model) {
+            Model model) throws JsonParseException, JsonMappingException, IOException {
 
         // Check session and role of user login
         String result = checkSessionAndRole();
@@ -227,29 +253,24 @@ public class HotelController extends AbstractUserController {
         }
 
         // Create view return
-        ModelAndView mav = new ModelAndView(REDIRECT_HOTEL_EDIT);
+        ModelAndView mav = new ModelAndView(EDIT_HOTEL_SCREEN);
 
         // Validate check form empty
         ValidateFormUtils.checkEmpty(hotelEdit, bindingResult);
         if (bindingResult.hasErrors()) {
-            redirectAttr.addFlashAttribute("failMsg", "Vui lòng nhập đầy đủ các field");
+            mav.addObject("hotelEdit", hotelEdit);
             return mav;
         }
 
         // Check format phone
         ValidateFormUtils.validatePhoneNumber(hotelEdit.getPhone(), bindingResult);
-        if (bindingResult.hasErrors()) {
-            redirectAttr.addFlashAttribute("failPhoneMsg", "Số điện thoại chưa chính xác");
-        }
 
         // Check format website
         ValidateFormUtils.checkFormatWebsite(hotelEdit.getWebsite(), bindingResult);
-        if (bindingResult.hasErrors()) {
-            redirectAttr.addFlashAttribute("failWebsiteMsg", "Địa chỉ website chưa chính xác");
-        }
 
         // Summary error
         if (bindingResult.hasErrors()) {
+            mav.addObject("hotelEdit", hotelEdit);
             return mav;
         }
 
@@ -257,6 +278,7 @@ public class HotelController extends AbstractUserController {
         String uri = API.URI_HOTELS + "/" + id;
         HttpHeaders headers = new HttpHeaders();
         headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
         headers.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<Hotel> requestBody = new HttpEntity<>(hotelEdit, headers);
@@ -264,13 +286,20 @@ public class HotelController extends AbstractUserController {
         // Edit hotel using API
         try {
             // Edit
-            restTemplate.exchange(uri, HttpMethod.PUT, requestBody, Void.class);
-            redirectAttr.addFlashAttribute("successMsg", EDIT_HOTEL_SUCCESS_MSG);
+            HotelResponse<String> hotel = restTemplate.exchange(uri, HttpMethod.PUT, requestBody,
+                    new ParameterizedTypeReference<HotelResponse<String>>() {
+                    }).getBody();
+            redirectAttr.addFlashAttribute("successMsg", hotel.getResultMessage());
             return new ModelAndView(REDIRECT_HOTEL);
         } catch (HttpStatusCodeException exception) {
+            // Convert json error msg -> hotelResponse
+            ObjectMapper mapper = new ObjectMapper();
+            String errorMessage = exception.getResponseBodyAsString();
+            HotelResponse hotel = mapper.readValue(errorMessage, HotelResponse.class);
             // If fail: return add hotel screen with notification
-            redirectAttr.addFlashAttribute("failMsg", EDIT_HOTEL_FAIL_MSG);
-            return new ModelAndView(REDIRECT_HOTEL_EDIT);
+            mav.addObject("failMsg", hotel.getResultMessage());
+            mav.addObject("hotelEdit", hotelEdit);
+            return mav;
         }
     }
 
@@ -278,10 +307,13 @@ public class HotelController extends AbstractUserController {
      * Process delete hotel
      * 
      * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteHotelProcess(@Valid @PathVariable int id, HttpSession session,
-            RedirectAttributes redirectAttr) {
+            RedirectAttributes redirectAttr) throws JsonParseException, JsonMappingException, IOException {
         // Check session and role of user login
         String result = checkSessionAndRole();
 
@@ -293,15 +325,22 @@ public class HotelController extends AbstractUserController {
         String uri = API.URI_HOTELS + "/" + id;
         HttpHeaders headers = new HttpHeaders();
         headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
         headers.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
         // Delete
         try {
-            restTemplate.delete(uri);
-            redirectAttr.addFlashAttribute("successMsg", DELETE_HOTEL_SUCCESS_MSG);
+            HotelResponse<String> hotel = restTemplate.exchange(uri, HttpMethod.DELETE,
+                    new HttpEntity<String>(null, headers), new ParameterizedTypeReference<HotelResponse<String>>() {
+                    }).getBody();
+            redirectAttr.addFlashAttribute("successMsg", hotel.getResultMessage());
         } catch (HttpStatusCodeException exception) {
+            // Convert json error msg -> hotelResponse
+            ObjectMapper mapper = new ObjectMapper();
+            String errorMessage = exception.getResponseBodyAsString();
+            HotelResponse hotel = mapper.readValue(errorMessage, HotelResponse.class);
             // If fail: return show hotel screen with notification
-            redirectAttr.addFlashAttribute("failMsg", DELETE_HOTEL_FAIL_MSG);
+            redirectAttr.addFlashAttribute("failMsg", hotel.getResultMessage());
         }
         // Return hotel screen
         return new ModelAndView(REDIRECT_HOTEL);

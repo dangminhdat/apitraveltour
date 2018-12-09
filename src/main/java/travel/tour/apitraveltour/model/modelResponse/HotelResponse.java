@@ -7,12 +7,17 @@
 */
 package travel.tour.apitraveltour.model.modelResponse;
 
-import travel.tour.apitraveltour.model.Hotel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HotelResponse {
+public class HotelResponse<T> {
+    @JsonProperty("result_code")
     private int result_code;
+    
+    @JsonProperty("result_message")
     private String result_message;
-    private Hotel data;
+    
+    @JsonProperty("data")
+    private T data;
 
     public int getResultCode() {
         return result_code;
@@ -30,11 +35,11 @@ public class HotelResponse {
         this.result_message = resultMessage;
     }
 
-    public Hotel getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Hotel data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

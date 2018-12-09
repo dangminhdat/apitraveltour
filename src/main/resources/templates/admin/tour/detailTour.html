@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Trang chủ</a><span>«</span></li>
+
+						<li><a href="/admin/tour">Quản lý Tour</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Quản lý chi tiết Tour</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<a th:href="@{/admin/tour/detail/{id}/detailTourAdd(id=${id_tour})}" class="btn btn-success btn-sm"><span
+							class="glyphicon glyphicon-plus"></span> Thêm chi tiết tour </a>
+
+						<p th:text="${successMsg}" style="color: blue;">></p>
+						<div>
+							<table id="table" class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Ngày khởi hành</th>
+										<th>Giờ khởi hành</th>
+										<th>Nơi tập trung</th>
+										<th>Giá người lớn</th>
+										<th>Giá trẻ em</th>
+										<th>Tên hướng dẫn viên</th>
+										<th>Số chổ</th>
+										<th>Khách sạn</th>
+										<th>Chức năng</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="tour, index : ${detailTours.data.list}">
+										<td th:text="${index.index + 1}">1</td>
+										<td th:text="${tour.date_depart}">Ngày khởi hành</td>
+										<td th:text="${tour.time_depart}">Giờ khởi hành</td>
+										<td th:text="${tour.address_depart}">Nơi tập trung</td>
+										<td th:text="${tour.price_adults}">Giá người lớn</td>
+										<td th:text="${tour.price_childs}">Giá trẻ em</td>
+										<td th:text="${tour.guide.name}">Tên hướng dẫn viên</td>
+										<td th:text="${tour.slot}">Sổ chổ</td>
+										<td>
+											<p th:each="hotel : ${tour.hotel}"
+												th:text="${hotel.name}">Message</p>
+										</td>
+										<td><a class="btn btn-success btn-sm" th:href="@{/admin/tour/detail/{id_tour}/detailTourEdit/{id_detail_tour}(id_tour=${id_tour}, id_detail_tour=${tour.id})}"><span
+												class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
+												th:href="@{/admin/tour/detail/{id_tour}/delete/{id}(id=${tour.id},id_tour=${id_tour})}"
+											onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+											class="btn btn-danger btn-sm"><span
+												class="glyphicon glyphicon-trash"></span> Xóa </a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>

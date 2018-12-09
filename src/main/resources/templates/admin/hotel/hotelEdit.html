@@ -11,7 +11,7 @@
 			<div class="w3l_agileits_breadcrumbs">
 				<div class="w3l_agileits_breadcrumbs_inner">
 					<ul>
-						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+						<li><a th:href="@{/admin/top-page}">Trang chủ</a><span>«</span></li>
 
 						<li><a th:href="@{/admin/hotel}">Quản lý khách sạn</a></li>
 					</ul>
@@ -24,39 +24,42 @@
 
 				<div class="agile-tables">
 					<div class="graph-form agile_info_shadow">
-						<h3 class="w3_inner_tittle two">Form</h3>
-						<p th:text="${failMsg}" style="color: red;"></p>
+						<div class="form-group">
+						  <p th:text="${failMsg}" style="color: red;"></p>
+						</div>
 						<div class="form-body">
 							<form id="formEdit" method="POST"
-								th:action="@{/admin/hotel/edit/{id}(id=${hotel.id})}" th:object="${hotelEdit}">
-								<ul style="padding-left: 0px;" class="form-group">
-									<li style="list-style-position: inside; color: red;"
-										th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-								</ul>
+								th:action="@{/admin/hotel/edit/{id}(id=${hotelEdit.id})}" th:object="${hotelEdit}">
 								<div class="form-group">
-								<input type="hidden" th:value="${hotel.id}" name="id"/>
+								<input type="hidden" th:value="${hotelEdit.id}" name="id"/>
 									<label for="usr">Tên khách sạn:</label> <input type="text"
-										th:value="${hotel.name}" name="name" class="form-control" />
+										th:value="${hotelEdit.name}" name="name" class="form-control" />
+									<p th:each="err : ${#fields.errors('name')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
 									<label>Địa chỉ:</label> <input name="address" type="text"
-										th:value="${hotel.address}" class="form-control" />
+										th:value="${hotelEdit.address}" class="form-control" />
+									<p th:each="err : ${#fields.errors('address')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Phone:</label> <input th:value="${hotel.phone}"
+									<label>Số điện thoại:</label> <input th:value="${hotelEdit.phone}"
 										name="phone" type="text" class="form-control" />
-									<p th:text="${failPhoneMsg}" style="color: red;"></p>
+									<p th:each="err : ${#fields.errors('phone')}" th:text="${err}" style="color:red;">Incorrect date</p>
+									<!-- <p th:text="${failPhoneMsg}" style="color: red;"></p> -->
 								</div>
 								<div class="form-group">
-									<label>Website:</label> <input th:value="${hotel.website}"
+									<label>Website:</label> <input th:value="${hotelEdit.website}"
 										name="website" type="text" class="form-control" />
-									<p th:text="${failWebsiteMsg}" style="color: red;"></p>
+									<p th:each="err : ${#fields.errors('website')}" th:text="${err}" style="color:red;">Incorrect date</p>
+									<!-- <p th:text="${failWebsiteMsg}" style="color: red;"></p> -->
 								</div>
 								<div class="form-group">
-									<label>Giá phòng:</label> <input th:value="${hotel.price_room}"
+									<label>Giá phòng:</label> <input th:value="${hotelEdit.price_room}"
 										name="price_room" type="text" class="form-control" />
+									<p th:each="err : ${#fields.errors('price_room')}" th:text="${err}" style="color:red;">Incorrect date</p>
 								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
+								<button type="submit" class="btn btn-default">Sửa</button>
+								<a th:href="@{/admin/hotel}" class="btn btn-danger" style="padding: 7px; width: 8em;">Trở lại</a>
 							</form>
 						</div>
 					</div>

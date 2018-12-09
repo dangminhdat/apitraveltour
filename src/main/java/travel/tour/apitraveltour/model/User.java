@@ -11,11 +11,14 @@ public class User {
 
     private Integer id;
     private String username;
-    private Integer active;
+    private String password;
+    private int active;
     private String rememberToken;
     private String fullname;
     private String email;
     private String phone;
+    private String address;
+    private int id_group;
 
     public Integer getId() {
         return id;
@@ -29,15 +32,30 @@ public class User {
         return username;
     }
 
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public Integer getActive() {
+    public int getActive() {
         return active;
     }
 
-    public void setActive(Integer active) {
+    public void setActive(int active) {
         this.active = active;
     }
 
@@ -73,4 +91,21 @@ public class User {
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getId_group() {
+        return id_group;
+    }
+
+    public void setId_group(int id_group) {
+        this.id_group = id_group;
+    }
+
+    
 }

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Trang chủ</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/user}">Quản lý User</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">PROFILE</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">THÔNG TIN</h3>
+						<div class="form-group">
+							<p th:text="${failMsg}" style="color: red;">></p>
+						</div>
+						<div class="form-body">
+							<div class="form-group">
+								<label for="usr">Username</label>
+								<p th:text="${userEdit.username}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Fullname</label>
+								<p th:text="${userEdit.fullname}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Địa chỉ</label>
+								<p th:text="${userEdit.address}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Phone</label>
+								<p th:text="${userEdit.phone}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Email</label>
+								<p th:text="${userEdit.email}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Phân quyền</label>
+								<div th:switch="${userEdit.id_group}">
+									<p th:case="1">ADMIN</p>
+									<p th:case="2">MOD</p>
+									<p th:case="3">CUSTOMER</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="usr">Kích hoạt</label>
+								<div th:switch="${userEdit.active}">
+									<p th:case="1">Active</p>
+									<p th:case="2">UnActive</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#formEdit').validate({
+						ignore : [],
+						debug : false,
+						rules : {
+							username : {
+								required : true,
+							},
+							password : {
+								required : true,
+							},
+							address : {
+								required : true,
+							},
+							phone : {
+								required : true,
+							},
+							email : {
+								required : true,
+							},
+							fullname : {
+								required : true,
+							},
+						},
+						messages : {
+							username : {
+								required : "Mời bạn nhập username",
+							},
+							password : {
+								required : "Mời bạn nhập mật khẩu",
+							},
+							address : {
+								required : "Mời bạn nhập địa chỉ user",
+							},
+							phone : {
+								required : "Mời bạn nhập số điện thoại user",
+							},
+							email : {
+								required : "Mời bạn nhập email của user",
+							},
+							fullname : {
+								required : "Mời bạn nhập tên đầy đủ của user",
+							},
+						}
+					});
+				});
+			</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>
