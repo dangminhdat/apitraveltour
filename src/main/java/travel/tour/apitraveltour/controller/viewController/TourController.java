@@ -71,6 +71,7 @@ import travel.tour.apitraveltour.model.TourAdd;
 import travel.tour.apitraveltour.model.modelRequest.DetailTourRequest;
 import travel.tour.apitraveltour.model.modelResponse.GuideResponse;
 import travel.tour.apitraveltour.model.modelResponse.HotelResponse;
+import travel.tour.apitraveltour.model.modelResponse.TourDetailResponse;
 import travel.tour.apitraveltour.model.modelResponse.TourResponse;
 
 @Controller
@@ -565,9 +566,12 @@ public class TourController extends AbstractUserController {
         mav.addObject("tours", tours);
         mav.addObject("hotels", hotels);
         mav.addObject("id_tour", id_tour);
+        //mav.addObject("detailTourEdit", new Tour());
+        
+//        new HttpEntity<String>(null, headers)
         try {
-            TourResponse<Tour> tourResponse = restTemplate.exchange(uri, HttpMethod.GET,
-                    new HttpEntity<String>(null, headers), new ParameterizedTypeReference<TourResponse<Tour>>() {
+            TourResponse<TourDetailResponse> tourResponse = restTemplate.exchange(uri, HttpMethod.GET,new HttpEntity<String>(null, headers)
+                    , new ParameterizedTypeReference<TourResponse<TourDetailResponse>>() {
                     }).getBody();
             mav.addObject("detailTourEdit", tourResponse.getData());
             return mav;

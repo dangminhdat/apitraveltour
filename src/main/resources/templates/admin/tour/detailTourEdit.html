@@ -34,7 +34,7 @@
 								th:object="${detailTourEdit}">
 								<div class="form-group">
 									<label for="usr">Ngày khởi hành</label> <input
-										name="dateDepart" type="date" class="form-control"
+										name="dateDepart" type="text" class="form-control"
 										th:value="${detailTourEdit.dateDepart}" />
 									<p th:each="err : ${#fields.errors('dateDepart')}"
 										th:text="${err}" style="color: red;">Incorrect date</p>
@@ -74,7 +74,7 @@
 										style="color: red;">Incorrect date</p>
 								</div>
 								<div class="form-group">
-									<label>Huong dan vien</label> <select th:field="*{id_guide}">
+									<label>Huong dan vien</label> <select th:field="*{idGuide}">
 										<option th:each="guide : ${guides.data.list}"
 											th:value="${guide.id}" th:text="${guide.name}">Wireframe</option>
 									</select>
@@ -89,7 +89,7 @@
 									<label>Khach san</label>
 									<ul>
 										<li th:each="hotel : ${hotels.data.list}"><input
-											type="checkbox" th:field="*{id_hotel}" th:value="${hotel.id}" />
+											type="checkbox" th:field="*{idHotel}" th:value="${hotel.id}" />
 											<label th:text="${hotel.name}">Heating</label></li>
 									</ul>
 								</div>
