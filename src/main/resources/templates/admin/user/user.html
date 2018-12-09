@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="admin/fragments/layout">
@@ -27,36 +27,38 @@
 					<div class="w3l-table-info agile_info_shadow">
 						<h3 class="w3_inner_tittle two">Quản lý User</h3>
 						<a href="/admin/user/add" class="btn btn-success btn-sm"><span
-							class="glyphicon glyphicon-plus"></span> Thêm User </a>
+							class="glyphicon glyphicon-plus"></span> Thêm User</a>
 
-						<p th:text="${successMsg}" class="alert alert-success"></p>
+						<p th:text="${successMsg}" style="color: blue;">></p>
 						<table id="table" class="table table-striped">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Username</th>
-									<th>Tên</th>
-									<th>Email</th>
+									<th>Địa chỉ</th>
 									<th>Số điện thoại</th>
+									<th>Group</th>
 									<th>Chức năng</th>
 								</tr>
 							</thead>
-							<tbody th:if="${users.data != null}">
+							<tbody>
 								<tr th:each="user : ${users.data.list}">
 									<td th:text="${user.id}">1</td>
-									<td th:text="${user.username}">username</td>
-									<td th:text="${user.fullname}">fullname</td>
-									<td th:text="${user.email}">email</td>
-									<td th:text="${user.phone}">phone</td>
-									<td><button type="button" class="btn btn-info btn-sm">
-											<span class="glyphicon glyphicon-pencil"></span> Sửa
-										</button> <a href="/admin/user/delete/{}" class="btn btn-success btn-sm"><span
+									<td th:text="${user.username}">Name</td>
+									<td th:text="${user.address}">Address</td>
+									<td th:text="${user.phone}">Phone</td>
+									<div th:switch="${user.id_group}"> 
+									<td th:case="1">ADMIN</td>
+									<td th:case="2">MOD</td>
+									<td th:case="3">CUSTOMER</td>
+									</div>
+									<td><a th:href="@{/admin/user/edit/{id}(id=${user.id})}"
+										class="btn btn-success btn-sm"><span
+											class="glyphicon glyphicon-pencil"></span> Sửa </a> <a
+										th:href="@{/admin/user/delete/{id}(id=${user.id})}"
+										onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+										class="btn btn-danger btn-sm"><span
 											class="glyphicon glyphicon-trash"></span> Xóa </a></td>
-								</tr>
-							</tbody>
-							<tbody th:unless="${users.data != null}">
-								<tr>
-									<td colspan="6">Hiện chưa có thông tin</td>
 								</tr>
 							</tbody>
 						</table>

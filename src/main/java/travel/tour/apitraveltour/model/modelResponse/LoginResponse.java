@@ -7,12 +7,17 @@
 */
 package travel.tour.apitraveltour.model.modelResponse;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LoginResponse {
 
+    @JsonProperty("result_code")
     private int result_code;
 
+    @JsonProperty("result_message")
     private String result_message;
 
+    @JsonProperty("data")
     private String data;
 
     public LoginResponse() {

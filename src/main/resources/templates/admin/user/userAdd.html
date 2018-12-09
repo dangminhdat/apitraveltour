@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a th:href="@{/admin/top-page}">Home</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/user}">Quản lý User</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Thêm User</h2>
+
+				<div class="agile-tables">
+					<div class="graph-form agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Form</h3>
+						<div class="form-group">
+							<p th:text="${failMsg}" style="color: red;">></p>
+						</div>
+						<div class="form-body">
+							<form id="formAdd" method="POST" th:action="@{/admin/user/add}"
+								th:object="${userAdd}">
+								<div class="form-group">
+									<label for="usr">Username</label> <input name="username"
+										type="text" class="form-control"
+										th:value="${userAdd.username}" />
+									<p th:each="err : ${#fields.errors('username')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label for="usr">Password</label> <input name="password"
+										type="password" class="form-control"
+										th:value="${userAdd.password}" />
+									<p th:each="err : ${#fields.errors('password')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label for="usr">Fullname</label> <input name="fullname"
+										type="text" class="form-control"
+										th:value="${userAdd.fullname}" />
+									<p th:each="err : ${#fields.errors('fullname')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Địa chỉ:</label> <input name="address" type="text"
+										class="form-control" th:value="${userAdd.address}" />
+									<p th:each="err : ${#fields.errors('address')}"
+										th:text="${err}" style="color: red;">Incorrect date</p>
+
+								</div>
+								<div class="form-group">
+									<label>Phone:</label> <input name="phone" type="text"
+										class="form-control" th:value="${userAdd.phone}" />
+									<p th:each="err : ${#fields.errors('phone')}" th:text="${err}"
+										style="color: red;">Incorrect date</p>
+
+								</div>
+								<div class="form-group">
+									<label>Email:</label> <input name="email" type="email"
+										class="form-control" th:value="${userAdd.email}" />
+									<p th:each="err : ${#fields.errors('email')}" th:text="${err}"
+										style="color: red;">Incorrect date</p>
+								</div>
+								<div class="form-group">
+									<label>Phân quyền</label> <select th:field="*{id_group}">
+										<option th:value="1" th:text="ADMIN">Admin</option>
+										<option th:value="2" th:text="MODE">Mod</option>
+										<option th:value="3" th:text="CUSTOMER" selected="selected">Customer</option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $('#formAdd').validate({
+            ignore: [],
+            debug: false,
+            rules: {
+                username: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                },
+                fullname: {
+                    required: true,
+                },
+            },
+            messages:{
+                username: {
+                    required: "Mời bạn nhập username",
+                },
+                password: {
+                    required: "Mời bạn nhập mật khẩu",
+                },
+                address: {
+                    required: "Mời bạn nhập địa chỉ user",
+                },
+                phone: {
+                    required: "Mời bạn nhập số điện thoại user",
+                },
+                email: {
+                    required: "Mời bạn nhập email của user",
+                },
+                fullname: {
+                    required: "Mời bạn nhập tên đầy đủ của user",
+                },
+            }
+        });                 
+    });
+</script>
+			<!-- End Script -->
+		</div>
+		<!-- //inner_content_w3_agile_info-->
+	</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Home</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/review}">Quản lý review</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Tables</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<h3 class="w3_inner_tittle two">Quản lý review</h3>
+						<div class="form-group">
+							<label for="usr">Mã tour:</label>
+							<p th:text="${detailReview.id}">></p>
+						</div>
+						<div class="form-group">
+							<label for="usr">Tên:</label>
+							<p th:text="${detailReview.name}">></p>
+						</div>
+						<div class="form-group">
+							<label for="usr">Email:</label>
+							<p th:text="${detailReview.email}">></p>
+						</div>
+						<div class="form-group">
+							<label for="usr">Mức đánh giá:</label>
+							<p th:text="${detailReview.score}">></p>
+						</div>
+						<div class="form-group">
+							<label for="usr">Ngày review:</label>
+							<p th:text="${detailReview.dateReview}">></p>
+						</div>
+						<div class="form-group">
+							<label for="usr">Tour:</label>
+							<p th:text="${detailReview.nameTour}">></p>
+						</div>
+						<div class="form-group">
+							<a href="/admin/review" class="btn btn-success btn-sm"> Back
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>
