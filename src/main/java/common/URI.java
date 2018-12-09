@@ -30,7 +30,7 @@ public class URI {
         public static final String URI_GET_TOUR = "https://apitour.herokuapp.com/api/get-tour";
 
         // API get tour
-        public static final String URI_GET_DETAIL_TOUR_BY_ID = "https://apitour.herokuapp.com/api/get-tour";
+        public static final String URI_GET_DETAIL_TOUR_BY_ID = "https://apitour.herokuapp.com/api/get-detail";
 
         // API control detail tour
         public static final String URI_DETAIL_TOUR = "https://apitour.herokuapp.com/api/detail";
