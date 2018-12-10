@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Trang chủ</a><span>«</span></li>
+
+						<li><a th:href="@{/admin/review}">Quản lý order</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Quản lý order</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<div>Thong tin tour</div>
+						<div>
+							<div class="form-group">
+								<label for="usr">Điện điểm khởi hành:</label>
+								<p th:text="${detailTour.addressDepart}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Ngày khởi hành:</label>
+								<p th:text="${detailTour.dateDepart}">></p>
+							</div>
+						</div>
+						<div>Thông tin người đặt tour</div>
+						<div>
+							<div class="form-group">
+								<label for="usr">Ten:</label>
+								<p th:text="${userOrder.username}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Địa chỉ:</label>
+								<p th:text="${userOrder.address}">></p>
+							</div>
+							<div class="form-group">
+								<label for="usr">Số điện thoại :</label>
+								<p th:text="${userOrder.phone}">></p>
+							</div>
+							<div class="form-group">
+                                <label for="usr">EMail :</label>
+                                <p th:text="${userOrder.email}">></p>
+                            </div>
+						</div>
+						<div class="form-group">
+							<a href="/admin/order" class="btn btn-success btn-sm"> Trở
+								lại </a>
+						</div>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>

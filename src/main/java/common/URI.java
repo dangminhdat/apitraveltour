@@ -25,7 +25,7 @@ public class URI {
 
         // API control tour
         public static final String URI_TOUR = "https://apitour.herokuapp.com/api/tour";
-        
+
         // API get tour
         public static final String URI_GET_TOUR = "https://apitour.herokuapp.com/api/get-tour";
 
@@ -40,6 +40,9 @@ public class URI {
 
         // API control review
         public static final String URI_REVIEW = "https://apitour.herokuapp.com/api/review";
+
+        // API control order
+        public static final String URI_ORDER = "https://apitour.herokuapp.com/api/person-order";
 
         // API logout
         public static final String URI_LOGOUT = "https://apitour.herokuapp.com/api/logout";
