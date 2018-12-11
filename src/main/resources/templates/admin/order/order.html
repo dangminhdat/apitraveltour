@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/fragments/layout">
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="inner_content">
+			<!-- /inner_content_w3_agile_info-->
+
+			<!-- breadcrumbs -->
+			<div class="w3l_agileits_breadcrumbs">
+				<div class="w3l_agileits_breadcrumbs_inner">
+					<ul>
+						<li><a href="/admin/top-page">Trang chủ</a><span>«</span></li>
+
+						<li>Quản lý đơn đặt hàng</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //breadcrumbs -->
+
+			<div class="inner_content_w3_agile_info two_in">
+				<h2 class="w3_inner_tittle">Quản lý đơn đặt hàng</h2>
+				<!-- tables -->
+
+				<div class="agile-tables">
+					<div class="w3l-table-info agile_info_shadow">
+						<p th:text="${successMsg}" style="color: blue;">></p>
+						<table id="table" class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Họ tên</th>
+									<th>Địa chỉ</th>
+									<th>Số điện thoại</th>
+									<th>Số khách</th>
+									<th>Thời gian đặt</th>
+									<th>Status</th>
+									<th>Chức năng</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="order, index : ${orders.data.list}">
+									<td th:text="${index.index + 1}">1</td>
+									<td th:text="${order.name}">Name</td>
+									<td th:text="${order.address}">Address</td>
+									<td th:text="${order.phone}">Phone</td>
+									<td th:text="${order.numAdults}">So khach</td>
+									<td th:text="${order.dateOrdered}">Thoi gian dat</td>
+									<div th:switch="${order.status}"> 
+                                    <td th:case="0">Hủy</td>
+                                    <td th:case="1">Chưa duyệt</td>
+                                    <td th:case="2">Đã duyệt</td>
+                                    </div>
+									<td><a th:href="@{/admin/order/detail/{id}(id=${order.id})}"
+										class="btn btn-success btn-sm"><span
+											class="glyphicon glyphicon-pencil"></span> Xem </a> <a
+										th:href="@{/admin/order/delete/{id}(id=${order.id})}"
+										onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+										class="btn btn-danger btn-sm"><span
+											class="glyphicon glyphicon-trash"></span> Xóa </a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- //tables -->
+			</div>
+			<!-- //inner_content_w3_agile_info-->
+		</div>
+	</div>
+</body>
+</html>
