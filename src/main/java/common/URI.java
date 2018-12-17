@@ -44,6 +44,9 @@ public class URI {
         // API control order
         public static final String URI_ORDER = "https://apitour.herokuapp.com/api/person-order";
 
+        // API control order
+        public static final String URI_ACTIVE_ORDER = "https://apitour.herokuapp.com/api/active-order";
+
         // API logout
         public static final String URI_LOGOUT = "https://apitour.herokuapp.com/api/logout";
 
