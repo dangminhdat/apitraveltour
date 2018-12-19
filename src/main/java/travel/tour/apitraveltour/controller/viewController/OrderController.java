@@ -36,6 +36,7 @@ import common.Constants;
 import common.Constants.SessionKey;
 import common.Constants.Url;
 import common.URI.API;
+import travel.tour.apitraveltour.model.ActiveOrder;
 import travel.tour.apitraveltour.model.DataOrderAPI;
 import travel.tour.apitraveltour.model.PersonOrder;
 import travel.tour.apitraveltour.model.Review;
@@ -147,18 +148,22 @@ public class OrderController extends AbstractUserController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         try {
             OrderResponse<PersonOrder> orderResponse = restTemplate
-                    .exchange(uri, HttpMethod.GET, new HttpEntity<String>(null, headers), new ParameterizedTypeReference<OrderResponse<PersonOrder>>() {
-                    }).getBody();
+                    .exchange(uri, HttpMethod.GET, new HttpEntity<String>(null, headers),
+                            new ParameterizedTypeReference<OrderResponse<PersonOrder>>() {
+                            })
+                    .getBody();
             mav.addObject("detailOrder", orderResponse.getData());
-            
+
             // get detail tour order
             String uri_tour = API.URI_GET_DETAIL_TOUR_BY_ID + "/" + orderResponse.getData().getIdDetailTour();
-            TourResponse<TourDetailResponse> tourResponse = restTemplate.exchange(uri_tour, HttpMethod.GET,
-                    new HttpEntity<String>(null, headers), new ParameterizedTypeReference<TourResponse<TourDetailResponse>>() {
-                    }).getBody();
+            TourResponse<TourDetailResponse> tourResponse = restTemplate
+                    .exchange(uri_tour, HttpMethod.GET, new HttpEntity<String>(null, headers),
+                            new ParameterizedTypeReference<TourResponse<TourDetailResponse>>() {
+                            })
+                    .getBody();
             mav.addObject("detailTour", tourResponse.getData());
-            
-            //get user order
+
+            // get user order
             String uri_user = API.URI_USERS + "/" + orderResponse.getData().getIdUser();
             UserResponse<User> userResponse = restTemplate.exchange(uri_user, HttpMethod.GET,
                     new HttpEntity<String>(null, headers), new ParameterizedTypeReference<UserResponse<User>>() {
@@ -201,6 +206,51 @@ public class OrderController extends AbstractUserController {
                     new HttpEntity<String>(null, headers), new ParameterizedTypeReference<OrderResponse<String>>() {
                     }).getBody();
             redirectAttr.addFlashAttribute("successMsg", order.getResultMessage());
+        } catch (HttpStatusCodeException exception) {
+            // Convert json error msg -> reviewResponse
+            ObjectMapper mapper = new ObjectMapper();
+            String errorMessage = exception.getResponseBodyAsString();
+            OrderResponse review = mapper.readValue(errorMessage, OrderResponse.class);
+            // If fail: return show review screen with notification
+            redirectAttr.addFlashAttribute("failMsg", review.getResultMessage());
+        }
+        // Return review screen
+        return new ModelAndView(REDIRECT_ORDER);
+    }
+
+    /**
+     * Process active order
+     * 
+     * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @RequestMapping(value = "/active-order/{id}", method = RequestMethod.POST)
+    public ModelAndView activeOrderProcess(@Valid @PathVariable int id, HttpSession session,
+            RedirectAttributes redirectAttr) throws JsonParseException, JsonMappingException, IOException {
+        // Check session and role of user login
+        String result = checkSessionAndRole();
+
+        if (!result.equals(Constants.Characters.BLANK)) {
+            return new ModelAndView(result);
+        }
+
+        // Header using Content-Type: application/json
+        String uri = API.URI_ACTIVE_ORDER;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        ActiveOrder activeOrder = new ActiveOrder();
+        activeOrder.setId(id);
+        // Active
+        try {
+            OrderResponse<String> orderActive = restTemplate.exchange(uri, HttpMethod.POST,
+                    new HttpEntity<ActiveOrder>(activeOrder, headers), new ParameterizedTypeReference<OrderResponse<String>>() {
+                    }).getBody();
+            redirectAttr.addFlashAttribute("successMsg", orderActive.getResultMessage());
         } catch (HttpStatusCodeException exception) {
             // Convert json error msg -> reviewResponse
             ObjectMapper mapper = new ObjectMapper();
