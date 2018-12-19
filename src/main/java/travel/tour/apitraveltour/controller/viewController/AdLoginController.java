@@ -130,7 +130,7 @@ public class AdLoginController {
             // Get user_id into session.
             session.setAttribute(SessionKey.REMEMBER_TOKEN, user.getData());
             // Redirect ~/admin/top-page screen
-            return new ModelAndView("redirect:" + Url.TOP_PAGE);
+            return new ModelAndView("redirect:" + Url.HANDLER_USER);
         } catch (HttpStatusCodeException exception) {
             // Convert json error msg -> hotelResponse
             ObjectMapper mapper = new ObjectMapper();
