@@ -13,16 +13,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -34,16 +29,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import common.Constants;
 import common.Constants.Characters;
 import common.Constants.SessionKey;
 import common.Constants.Url;
-import common.URI.API;
-import travel.tour.apitraveltour.model.User;
 import travel.tour.apitraveltour.model.modelRequest.UserRequest;
-import travel.tour.apitraveltour.model.modelResponse.HotelResponse;
 import travel.tour.apitraveltour.model.modelResponse.LoginResponse;
-import travel.tour.apitraveltour.model.modelResponse.UserResponse;
 
 @Controller
 @RequestMapping(Url.ADMIN_LOGIN)
@@ -130,7 +120,7 @@ public class AdLoginController {
             // Get user_id into session.
             session.setAttribute(SessionKey.REMEMBER_TOKEN, user.getData());
             // Redirect ~/admin/top-page screen
-            return new ModelAndView("redirect:" + Url.HANDLER_USER);
+            return new ModelAndView("redirect:" + Url.TOP_PAGE);
         } catch (HttpStatusCodeException exception) {
             // Convert json error msg -> hotelResponse
             ObjectMapper mapper = new ObjectMapper();
