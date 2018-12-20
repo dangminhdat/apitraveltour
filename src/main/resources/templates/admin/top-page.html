@@ -8,26 +8,42 @@
 			<!-- /inner_content_w3_agile_info-->
 			<div class="inner_content_w3_agile_info">
 				<!-- /agile_top_w3_grids-->
-				<div class="agile_top_w3_grids"></div>
+				<div class="agile_top_w3_grids">
+					<ul class="ca-menu">
+						<li><a href="/admin/order"> <i class="fa fa-building-o"
+								aria-hidden="true"></i>
+								<div class="ca-content">
+									<h4 class="ca-main" th:text="${statistic.order}">16,808</h4>
+									<h3 class="ca-sub">Order</h3>
+								</div>
+						</a></li>
+						<li><a href="/admin/guide"> <i class="fa fa-user" aria-hidden="true"></i>
+								<div class="ca-content">
+									<h4 class="ca-main one" th:text="${statistic.guide}">26,808</h4>
+									<h3 class="ca-sub one">Hướng dẫn viên</h3>
+								</div>
+						</a></li>
+						<li><a href="/admin/tour"> <i class="fa fa-database"
+								aria-hidden="true"></i>
+								<div class="ca-content">
+									<h4 class="ca-main two" th:text="${statistic.tour}">29,008</h4>
+									<h3 class="ca-sub two">Tour</h3>
+								</div>
+						</a></li>
+						<li><a href="/admin/hotel"> <i class="fa fa-tasks"
+								aria-hidden="true"></i>
+								<div class="ca-content">
+									<h4 class="ca-main three" th:text="${statistic.hotel}">49,436</h4>
+									<h3 class="ca-sub three">Khách sạn</h3>
+								</div>
+						</a></li>
+
+						<div class="clearfix"></div>
+					</ul>
+				</div>
 				<!-- //agile_top_w3_grids-->
 				<!-- /agile_top_w3_post_sections-->
-				<div class="agile_top_w3_post_sections">
-					<div class="col-md-6 agile_top_w3_post agile_info_shadow"></div>
-				</div>
-				<div class="col-md-6 agile_top_w3_post_info agile_info_shadow">
-
-				</div>
-				<div class="clearfix"></div>
 			</div>
-
-			<!-- //agile_top_w3_post_sections-->
-			<!-- /w3ls_agile_circle_progress-->
-			<div class="w3ls_agile_cylinder chart agile_info_shadow"></div>
-			<!-- /w3ls_agile_circle_progress-->
-			<!-- /chart_agile-->
-
-			<!-- /w3ls_agile_circle_progress-->
-			<div class="w3ls_agile_circle_progress agile_info_shadow"></div>
 		</div>
 	</div>
 </body>
