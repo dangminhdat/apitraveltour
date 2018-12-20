@@ -14,6 +14,9 @@ public class URI {
         // API control user
         public static final String URI_USERS = "https://apitour.herokuapp.com/api/users";
 
+        // API control user
+        public static final String URI_STATISTIC = "https://apitour.herokuapp.com/api/statistic";
+
         // API get profile user
         public static final String URI_PROFILE = "https://apitour.herokuapp.com/api/profile";
 

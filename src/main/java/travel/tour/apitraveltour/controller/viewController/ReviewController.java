@@ -58,7 +58,7 @@ public class ReviewController extends AbstractUserController {
      * @return review screen
      */
     @RequestMapping(Constants.Characters.BLANK)
-    public ModelAndView showHandleReivewScreen() {
+    public ModelAndView showHandleReivewScreen(HttpSession session) {
 
         // Check session login and role
         String result = checkSessionAndRole();
@@ -68,8 +68,12 @@ public class ReviewController extends AbstractUserController {
 
         // Get data from API
         RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", (String) session.getAttribute(SessionKey.REMEMBER_TOKEN));
+        headers.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<ReviewResponse<DataReviewAPI>> response = restTemplate.exchange(API.URI_REVIEW, HttpMethod.GET,
-                null, new ParameterizedTypeReference<ReviewResponse<DataReviewAPI>>() {
+                new HttpEntity<String>(null, headers), new ParameterizedTypeReference<ReviewResponse<DataReviewAPI>>() {
                 });
         ReviewResponse<DataReviewAPI> reviews = response.getBody();
         // Set data to display.
