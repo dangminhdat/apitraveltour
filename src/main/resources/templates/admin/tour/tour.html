@@ -48,7 +48,7 @@
 									<td th:text="${tour.name}">Name</td>
 									<td th:text="${tour.numberDays}">Số ngày</td>
 									<td th:text="${tour.discount}">Giảm giá</td>
-									<td><img alt="hình ảnh tour" th:src="@{https://apitour.herokuapp.com/uploads/{images}(images=${tour.images})}" /></td>
+									<td><img alt="hình ảnh tour" style="width: 150px; height: auto" th:src="@{https://apitour.herokuapp.com/{images}(images=${tour.images})}" /></td>
 									<div th:switch="${tour.typeTour}">
 									<td th:case="1">Tour trong nước</td>
 									<td th:case="2">Tour ngoài nước</td>
