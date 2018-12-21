@@ -216,14 +216,6 @@ public class TourController extends AbstractUserController {
         HttpEntity<MultiValueMap<String, Object>> requestTour = new HttpEntity<MultiValueMap<String, Object>>(parts,
                 headers);
 
-        // Repare images to add with API.UPLOAD_IMG
-        // File file = new File(imagesAdd.getOriginalFilename());
-        File file = new File("C:\\Users\\Admin\\Desktop\\uploads\\", imagesAdd.getOriginalFilename());
-        imagesAdd.transferTo(file);
-        LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-        map.add("images", new FileSystemResource(file));
-        HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
-                map, headers);
         try {
 //            TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG, HttpMethod.POST, requestImage,
 //                    new ParameterizedTypeReference<TourResponse<String>>() {
@@ -470,14 +462,6 @@ public class TourController extends AbstractUserController {
         parts.add("images", tourEdit.getImages());
         HttpEntity<MultiValueMap<String, Object>> requestTour = new HttpEntity<MultiValueMap<String, Object>>(parts,
                 headers);
-
-        // Repare images to add with API.UPLOAD_IMG
-        File file = new File("D:\\uploads\\", imagesEdit.getOriginalFilename());
-        imagesEdit.transferTo(file);
-        LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-        map.add("images", new FileSystemResource(file));
-//        HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
-//                map, headers);
 
         String uri = API.URI_TOUR + "/" + id;
         try {
