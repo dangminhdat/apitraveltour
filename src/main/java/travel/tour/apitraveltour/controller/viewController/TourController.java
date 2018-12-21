@@ -199,9 +199,6 @@ public class TourController extends AbstractUserController {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.add("accept", MediaType.MULTIPART_FORM_DATA_VALUE);
         RestTemplate restTemplate = new RestTemplate();
-        // restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
-        // restTemplate.getMessageConverters().add(new
-        // MappingJackson2HttpMessageConverter());
 
         // Repare data (key, value) for form-data
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
@@ -213,6 +210,8 @@ public class TourController extends AbstractUserController {
         parts.add("programs", tourAdd.getPrograms());
         parts.add("note", tourAdd.getNote());
         parts.add("id_type_tour", tourAdd.getId_type_tour());
+        tourAdd.setImages("uploads/da-nang-nha-trang-02.jpg");
+        
         parts.add("images", tourAdd.getImages());
         HttpEntity<MultiValueMap<String, Object>> requestTour = new HttpEntity<MultiValueMap<String, Object>>(parts,
                 headers);
@@ -225,28 +224,10 @@ public class TourController extends AbstractUserController {
         map.add("images", new FileSystemResource(file));
         HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
                 map, headers);
-
-        // byte[] bytes = imagesAdd.getBytes();
-        // BufferedOutputStream stream = new BufferedOutputStream(
-        // new FileOutputStream(new File("D:\\" + imagesAdd.getName())));
-        // stream.write(bytes);
-        // stream.close();
-
-        // MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-        // Object>();
-        // map.add("images", imagesAdd);//new FileSystemResource("D:\\" +
-        // uploadFiles.getName() ));
-        // HttpEntity<MultiValueMap<String, Object>> request = new
-        // HttpEntity<MultiValueMap<String, Object>>(parts, headers);
-
-        // TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG,
-        // HttpMethod.POST, request,new
-        // ParameterizedTypeReference<TourResponse<String>>() {}).getBody();
-        // return new ModelAndView(REDIRECT_TOUR);
         try {
-            TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG, HttpMethod.POST, requestImage,
-                    new ParameterizedTypeReference<TourResponse<String>>() {
-                    }).getBody();
+//            TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG, HttpMethod.POST, requestImage,
+//                    new ParameterizedTypeReference<TourResponse<String>>() {
+//                    }).getBody();
             TourResponse<String> tour = restTemplate.exchange(API.URI_TOUR, HttpMethod.POST, requestTour,
                     new ParameterizedTypeReference<TourResponse<String>>() {
                     }).getBody();
@@ -485,6 +466,7 @@ public class TourController extends AbstractUserController {
         parts.add("programs", tourEdit.getPrograms());
         parts.add("note", tourEdit.getNote());
         parts.add("id_type_tour", tourEdit.getTypeTour());
+        tourEdit.setImages("uploads/da-nang-nha-trang-02.jpg");
         parts.add("images", tourEdit.getImages());
         HttpEntity<MultiValueMap<String, Object>> requestTour = new HttpEntity<MultiValueMap<String, Object>>(parts,
                 headers);
@@ -494,16 +476,12 @@ public class TourController extends AbstractUserController {
         imagesEdit.transferTo(file);
         LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
         map.add("images", new FileSystemResource(file));
-        HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
-                map, headers);
+//        HttpEntity<LinkedMultiValueMap<String, Object>> requestImage = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+//                map, headers);
 
         String uri = API.URI_TOUR + "/" + id;
         try {
-            // TourResponse<String> imgTour = restTemplate.exchange(API.URI_UPLOAD_IMG,
-            // HttpMethod.POST, requestImage,
-            // new ParameterizedTypeReference<TourResponse<String>>() {
-            // }).getBody();
-            TourResponse<String> tour = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(tourEdit, headers),
+            TourResponse<String> tour = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(requestTour, headers),
                     new ParameterizedTypeReference<TourResponse<String>>() {
                     }).getBody();
             redirectAttr.addFlashAttribute("successMsg", tour.getResultMessage());
