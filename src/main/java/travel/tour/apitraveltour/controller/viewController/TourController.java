@@ -211,6 +211,7 @@ public class TourController extends AbstractUserController {
         parts.add("note", tourAdd.getNote());
         parts.add("id_type_tour", tourAdd.getId_type_tour());
         tourAdd.setImages("uploads/da-nang-nha-trang-02.jpg");
+        
         parts.add("images", tourAdd.getImages());
         HttpEntity<MultiValueMap<String, Object>> requestTour = new HttpEntity<MultiValueMap<String, Object>>(parts,
                 headers);
